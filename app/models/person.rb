@@ -18,6 +18,11 @@ class Person < CouchRest::Model::Base
   # Temporary attribute to store old password
   attr_accessor :old_password
   
+  # find the source files the person locked
+  def source_files
+    SourceFile.all.select{|sf|sf.lock == id}
+  end
+  
   def self.authenticate(user_name, password)
     if not user_name.blank? and person = find_by_user_name(user_name)
       unless person.hashed_password.blank?
@@ -27,6 +32,10 @@ class Person < CouchRest::Model::Base
         end
       end
     end
+  end
+  
+  def self.first
+    all.first
   end
   
   def self.find_by_user_name(user_name)
