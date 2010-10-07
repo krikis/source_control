@@ -16,7 +16,7 @@ class Folder < CouchRest::Model::Base
   end
 
   def parent
-    Folder.find self.parent_id
+    @parent ||= Folder.find self.parent_id
   end
 
   def parent=(parent)

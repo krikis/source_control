@@ -22,6 +22,19 @@ class SourceFile < CouchRest::Model::Base
     all.select{|sf|sf.folder_id.blank?}.sort_by{|sf|sf.name.andand.downcase || ""}
   end
   
+  # generates the full path of the file
+  def path_name
+    path = name
+    if tmp_folder = folder
+      path = tmp_folder.name + "/" + path
+      while parent = tmp_folder.parent do
+        path = parent.name + "/" + path
+        tmp_folder = parent
+      end
+    end
+    "/" + path
+  end
+  
   # get the person that locked the file
   def person
     Person.find lock
@@ -37,7 +50,7 @@ class SourceFile < CouchRest::Model::Base
   end    
   
   def folder
-    SourceFile.find self.folder_id
+    @folder ||= Folder.find self.folder_id
   end
   
   def folder=(folder)

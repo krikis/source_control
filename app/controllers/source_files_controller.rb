@@ -18,6 +18,7 @@ class SourceFilesController < ApplicationController
   
   def create
     path = hash_for_source_files_path.merge({:folder_id => params[:folder_id]})
+    logger.error params.inspect
     source_file = SourceFile.create params
     flash[:success] = "Source File #{source_file.name} added."
     redirect_to path.merge({:selected_id => source_file.id})
