@@ -2,8 +2,10 @@ class SourceFilesController < ApplicationController
   
   def index
     if params[:folder].blank?
-      @source_files = SourceFile.all.select{|sf|sf.parent_id.blank?}
-    elsif folder = Folder.find params[:folder]
+    @folders = Folder.find_roots
+      @source_files = SourceFile.find_roots
+    elsif folder = Folder.find(params[:folder])  
+      @folders = folder.children
       @source_files = folder.source_files
     end
   end
@@ -16,6 +18,6 @@ class SourceFilesController < ApplicationController
   end
   
   def update
-    en
+  end
   
 end

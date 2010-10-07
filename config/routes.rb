@@ -3,6 +3,9 @@ SourceControl::Application.routes.draw do
   
   resources :source_files, 
             :only => [:index, :show, :create, :update]
+            
+  resource :folder, 
+           :only => [:create, :update]
   
   resource :person,
            :member => {:login => :put, :logout => :put}
