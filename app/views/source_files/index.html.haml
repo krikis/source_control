@@ -26,8 +26,8 @@
           - selected = (element.id.to_s == params[:selected_id])
           = render :partial => "clickable_row", |
                    :object => {:element => element,
-                               :content => element.name,
-                               :color => (selected ? "selected" : cycle("odd", "even"))}
+                               :content => "#{element.name}#{"/" if element.is_a? Folder}",
+                               :color => (selected ? "selected blue" : cycle("odd blue", "even blue"))}
     %li.column.index
       %ul
         %li.header{:title => "Code"} Code

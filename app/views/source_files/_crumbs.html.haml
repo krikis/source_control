@@ -1,5 +1,5 @@
 %ul
-  %li
+  %li.crumb
     = link_to "SourceControl", 
               source_files_path,
               :class => "crumb not_last uber",
@@ -10,8 +10,9 @@
       - folders << parent
       - folder = parent
     - folders.reverse.each do |folder|
-      %li / 
-      %li
+      %li.crumb
+        %a.separator / 
+      %li.crumb
         = link_to truncate("#{folder.name}", :length => 20), 
                   hash_for_source_files_path.merge(:folder_id => folder.id),
                   :class => "crumb#{" not_last" unless folder == folders.first}",

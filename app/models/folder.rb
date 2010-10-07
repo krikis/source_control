@@ -30,12 +30,5 @@ class Folder < CouchRest::Model::Base
   def source_files
     SourceFile.all.select{|sf|sf.folder_id == id}.sort_by{|sf|sf.name.andand.downcase || ""}
   end
-  
-  # methods for compatibility
-  
-  def code
-  end
-  
-  def last_udpate
-  end
+
 end
