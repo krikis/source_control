@@ -13,6 +13,7 @@ class Person < CouchRest::Model::Base
   validates_confirmation_of :password, :if => :password_changed?
   validates_length_of :password, :minimum => 8, :if => :password_changed?
 
+  validates_presence_of :name
   validates_presence_of :user_name
   validates_uniqueness_of :user_name
     

@@ -1,0 +1,11 @@
+- path = toolbar_button[:path]
+%div{:id => toolbar_button[:id], :style => "display: none;"}
+  - form_tag path, |
+             :method => toolbar_button[:method] do
+    = text_field_tag("name", "", :size => 11, :max_length => 10)
+%a.toolbar_button{:href => path, :title => toolbar_button[:title], :class => ("last" if toolbar_button[:last])}
+  %p
+    = image_tag toolbar_button[:icon], :size => "16x16", :alt => ""
+    %span.toolbar_button= toolbar_button[:text]
+
+          

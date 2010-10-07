@@ -1,0 +1,19 @@
+%ul
+  %li.toolbar_button
+    = render :partial => "toolbar_button", |
+             :object => {:text => "Add Source File",
+                         :path => source_files_path,
+                         :method => :post,
+                         :id => "add_source_file",
+                         :icon => "add_source_file.png",
+                         :title => "Click here to add a source file.",
+                         :last => false}
+  %li.toolbar_button
+    = render :partial => "toolbar_button", |
+             :object => {:text => "Add Folder",
+                         :path => folder_path,
+                         :method => :post,
+                         :id => "add_folder",
+                         :icon => "add_folder.png",
+                         :title => "Click here to add a source folder.",
+                         :last => true}

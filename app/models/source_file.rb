@@ -7,11 +7,18 @@ class SourceFile < CouchRest::Model::Base
   property :folder_id, String
   property :last_update, Time
   property :updated_by, String
+  property :message, String
   
   timestamps!
   
+  validates_presence_of :name
+  
   def self.first
     all.first
+  end
+  
+  def self.find_roots
+    all.select{|sf|sf.folder_id.blank?}
   end
   
   # get the person that locked the file

@@ -1,0 +1,185 @@
+!column_grey = #EEE
+!border_grey = #DDD
+!column_hover = #98C2EC
+
+body
+  line-height: 1.2em
+
+div.toolbar
+  clear: both
+
+  li.toolbar_button
+    float: left
+    height: 30px
+    overflow: hidden
+
+    a.toolbar_button
+      border-top: 1px solid !border_grey
+      border-left: 1px solid !border_grey
+      padding: 7px
+      padding-left: 6px
+      padding-right: 6px
+      height: 16px
+      display: block
+      float: left
+      text-decoration: none
+      font-weight: normal
+      font: inherit
+      color: black
+
+      &:link, &:visited
+        background: !column_grey
+
+      &:hover, &:active
+        background: !column_hover
+
+    a.toolbar_button.last
+      border-right: 1px solid !border_grey
+
+  p
+    white-space: nowrap
+    margin: 0px
+
+  span.toolbar_button
+    vertical-align: 25%
+
+div.empty
+  padding: 3em
+
+div.columns
+  clear: both
+
+  li.new
+    width: 25%
+
+  li.index
+    width: 20%
+
+  li.column
+    float: left
+    overflow: auto
+    overflow-x: hidden
+
+  li#buttons li.row
+    border-right: 1px solid !border_grey
+    
+  li.row.last
+    border-right: 1px solid !border_grey
+
+  li.row.even
+    background-color: !column_grey
+
+  li.row.selected
+    background-color: !column_hover
+    
+  li.row.hover
+    background-color: !column_hover
+
+  li.row
+    height: 2.6em
+    overflow: hidden
+    border-bottom: 1px solid !border_grey
+    border-left: 1px solid !border_grey
+
+    div.row
+      width: 100%
+      display: block
+      padding: .8em
+      
+    a.clickable_row
+      display: block
+      width: 100%
+      padding: .8em
+      color: black
+      font-weight: normal
+      text-decoration: none
+
+    div.buttons.selected
+      a.inline_button
+        border: none
+        margin: 0px
+        padding: 4px
+        padding-top: 5px
+        height: 32px
+        display: block
+        float: right
+        text-decoration: none
+        font-weight: normal
+        font: inherit
+        color: black
+        background: !column_hover
+
+        &:hover, &:active
+          background: white
+
+    div.buttons
+      width: 100%
+      display: block
+      height: 2.6em
+      overflow: hidden
+
+      a.inline_button
+        margin: 0px
+        padding: 4px
+        padding-top: 5px
+        height: 32px
+        display: block
+        float: right
+        text-decoration: none
+        font-weight: normal
+        font: inherit
+        color: black
+
+        &:hover, &:active
+          background: !column_hover
+
+      div.inactive_button
+        margin: 0
+        padding: 4px
+        padding-top: 5px
+        display: block
+        float: right
+        text-decoration: none
+        font-weight: normal
+        font: inherit
+        color: black
+
+    span
+      white-space: nowrap
+      margin: 0px
+
+    input
+      line-height: inherit
+
+  li.header
+    background-color: #000
+    color: #FFF
+    display: block
+    height: 1.3em
+    padding: .4em 1em .1em 1em
+    text-align: left
+    text-decoration: none
+
+div.footer
+  clear: both
+  padding-top: 1.2em
+
+/* fixes for ie 6.0 */
+
+* html div.columns li.index
+  width: 19%
+  
+* html div.columns li.new
+  width: 24%
+
+* html span
+  vertical-align: top
+  
+* html div.toolbar
+  position: relative
+  float: left
+  
+* html div.columns
+  position: relative
+  float: left
+  width: 96%

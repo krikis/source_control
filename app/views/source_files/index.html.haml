@@ -1,5 +1,12 @@
+%div#crumbs
+  = render :partial => "crumbs"
+%div#toolbar
+  = render :partial => "toolbar"
 %div#source_files
   %ul
+    - @folders.each do |folder|
+      %li.folder
+        %p= folder.name
     - @source_files.each do |source_file|
       %li.source_file
         %p= source_file.name
