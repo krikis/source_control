@@ -1,4 +1,13 @@
 SourceControl::Application.routes.draw do
+  root :controller => :source_files, :action => :index
+  
+  resources :source_files, 
+            :only => [:index, :show, :create, :update]
+  
+  resource :person,
+           :member => {:login => :put, :logout => :put}
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

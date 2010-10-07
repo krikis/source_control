@@ -1,9 +1,14 @@
 class SourceFile < CouchRest::Model::Base  
   use_database COUCHDB.database("source_file")
   
-  property :lock, String
-  property :parent_id, String
+  property :name, String
   property :code, String
+  property :lock, String
+  property :folder_id, String
+  property :last_update, Time
+  property :updated_by, String
+  
+  timestamps!
   
   def self.first
     all.first
@@ -23,12 +28,12 @@ class SourceFile < CouchRest::Model::Base
     end
   end    
   
-  def parent
-    SourceFile.find self.parent_id
+  def folder
+    SourceFile.find self.folder_id
   end
   
-  def children
-    SourceFile.all.select{|sf|sf.parent_id == id}
+  def folder=(folder)
+    folder_id = folder.id
   end
   
 end

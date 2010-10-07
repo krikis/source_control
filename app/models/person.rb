@@ -5,6 +5,9 @@ class Person < CouchRest::Model::Base
   property :user_name, String
   property :hashed_password, String
   property :salt, String
+  property :last_login, Time  
+  
+  timestamps!
   
   validates_presence_of :password_confirmation, :if => :password_changed?
   validates_confirmation_of :password, :if => :password_changed?
