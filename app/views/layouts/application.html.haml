@@ -12,12 +12,13 @@
       %script{:defer=>"defer", :type=>"text/javascript", :src=>"/javascripts/pngfix.js"}
     %link{:rel=>"Shortcut Icon", :href=>"/favicon.ico"}
   %body
-    - if flash[:message]
-      #flash.notice.flash= flash[:message]
-    - if flash[:success]
-      #flash.success= flash[:success]
-    - if flash[:error]
-      #flash.error= flash[:error]
 
     #content
+      - if flash[:message]
+        #flash.notice.flash= flash[:message]
+      - if flash[:success]
+        #flash.success= flash[:success]
+      - if flash[:error]
+        #flash.error= flash[:error]
+        
       = yield

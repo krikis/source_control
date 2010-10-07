@@ -1,6 +1,31 @@
 !column_grey = #EEE
 !border_grey = #DDD
 !column_hover = #98C2EC
+!blue = #4183C4
+
+div#crumbs
+  vertical-align: bottom
+
+  a.crumb
+    display: block
+    float: left
+    text-decoration: none
+    font-weight: normal
+    font: inherit
+    font-size: 1.3em
+    color: black
+    padding: .3em
+    margin-bottom: 1em
+    padding-left: 0px
+    
+  a.crumb.not_last 
+    color: !blue    
+    
+    &:hover, &:active
+      text-decoration: underline
+
+  a.crumb.not_last.uber
+    font-weight: bolder
 
 div#toolbar
   clear: both
@@ -13,7 +38,7 @@ div#toolbar
 
     div.form_element
       display: none
-      width: 150px
+      width: 160px
       height: 24px
       padding: 3px
       padding-left: 6px
@@ -24,9 +49,12 @@ div#toolbar
 
     div.form_element.last
       border-right: 1px solid !border_grey
+    
+    input.form_element
+      font-size: 0.8em
 
     a.toolbar_button
-      width: 137px
+      width: 147px
       height: 24px
       border-top: 1px solid !border_grey
       border-left: 1px solid !border_grey
