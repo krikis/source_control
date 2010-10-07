@@ -17,8 +17,9 @@ class SourceFile < CouchRest::Model::Base
     all.first
   end
   
+  # TODO create view
   def self.find_roots
-    all.select{|sf|sf.folder_id.blank?}
+    all.select{|sf|sf.folder_id.blank?}.sort_by{|sf|sf.name.andand.downcase || ""}
   end
   
   # get the person that locked the file

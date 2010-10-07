@@ -1,11 +1,17 @@
 - path = toolbar_button[:path]
-%div{:id => toolbar_button[:id], :style => "display: none;"}
+- id = toolbar_button[:id]
+- parameters = toolbar_button[:params]
+%div.form_element{:id => id, :class => ("last" if toolbar_button[:last])}
   - form_tag path, |
+             :id => id,
              :method => toolbar_button[:method] do
-    = text_field_tag("name", "", :size => 11, :max_length => 10)
-%a.toolbar_button{:href => path, :title => toolbar_button[:title], :class => ("last" if toolbar_button[:last])}
+    - parameters.keys.each do |key|
+      = hidden_field_tag(key, parameters[key])
+    = image_tag toolbar_button[:icon], :size => "24x24", :alt => ""
+    %span.toolbar_button= text_field_tag("name", "", :size => 15, :max_length => 10, :id => id, :class => "form_element")
+%a.toolbar_button{:id => id, :href => path, :title => toolbar_button[:title], :class => ("last" if toolbar_button[:last])}
   %p
-    = image_tag toolbar_button[:icon], :size => "16x16", :alt => ""
+    = image_tag toolbar_button[:icon], :size => "24x24", :alt => ""
     %span.toolbar_button= toolbar_button[:text]
 
           

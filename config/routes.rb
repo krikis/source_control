@@ -2,7 +2,8 @@ SourceControl::Application.routes.draw do
   root :controller => :source_files, :action => :index
   
   resources :source_files, 
-            :only => [:index, :show, :create, :update]
+            :only => [:index, :show, :create, :update],
+            :member => {:lock => :put}
             
   resource :folder, 
            :only => [:create, :update]

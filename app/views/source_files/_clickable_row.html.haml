@@ -1,0 +1,19 @@
+- icon = clickable_row[:icon]
+- content = clickable_row[:content]
+- color = clickable_row[:color]
+- color = "selected" if clickable_row[:selected]
+- element = clickable_row[:element]
+- id = element.id
+- case element
+  - when Folder
+    - path = hash_for_source_files_path
+    - path[:folder_id] = id
+  - when SourceFile
+    - path = hash_for_source_file_path(:id => id)
+  - else
+    - path = :back
+%li.row.clickable{:class => (clickable_row[:color] + " #{id}"), :title => (content unless icon), :id => id}
+  - link_class = (icon ? "clickable_row icon" : "clickable_row")
+  = link_to render(:partial => (icon || "text"), :object => content), |
+            path,
+            :class => link_class

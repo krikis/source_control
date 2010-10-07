@@ -1,19 +1,76 @@
+- parameters = {}
+- parameters[:folder_id] = @folder.id if @folder
 %ul
   %li.toolbar_button
     = render :partial => "toolbar_button", |
              :object => {:text => "Add Source File",
                          :path => source_files_path,
                          :method => :post,
+                         :params => {:folder_id => @folder.andand.id},
                          :id => "add_source_file",
                          :icon => "add_source_file.png",
-                         :title => "Click here to add a source file.",
-                         :last => false}
+                         :title => "Click here to add a source file."}
   %li.toolbar_button
     = render :partial => "toolbar_button", |
              :object => {:text => "Add Folder",
                          :path => folder_path,
                          :method => :post,
+                         :params => {:parent_id => @folder.andand.id},
                          :id => "add_folder",
                          :icon => "add_folder.png",
                          :title => "Click here to add a source folder.",
                          :last => true}
+                         
+:javascript
+  $(document).ready(function(){
+    // Edit in place form for adding a source file
+    $("a#add_source_file").click(function(event) {
+      $("a#add_source_file").hide();
+      $("div#add_folder").hide();
+      $("a#add_folder").show();
+      $("div#add_source_file").show();
+      $("input[type=text]#add_source_file").focus();
+      return false;
+    })
+    $("div#add_source_file").keydown(function(event) {
+      if (event.keyCode == 13) {
+        $("form#add_source_file").submit();
+        return false;
+      } else if (event.keyCode == 27) {
+        $("div#add_source_file").hide();
+        $("a#add_source_file").show();
+        return false;
+      }
+    })
+    $("input#add_source_file").click(function(){
+      return false
+    })
+    // Edit in place form for adding a folder
+    $("a#add_folder").click(function(event) {
+      $("a#add_folder").hide();
+      $("div#add_source_file").hide();
+      $("a#add_source_file").show();
+      $("div#add_folder").show();
+      $("input[type=text]#add_folder").focus();
+      return false;
+    })
+    $("div#add_folder").keydown(function(event) {
+      if (event.keyCode == 13) {
+        $("form#add_folder").submit();
+        return false;
+      } else if (event.keyCode == 27) {
+        $("div#add_folder").hide();
+        $("a#add_folder").show();
+        return false;
+      }
+    })
+    $("input#add_folder").click(function(){
+      return false
+    })
+    $(document).click(function(event) {
+      $("div#add_folder").hide();
+      $("a#add_folder").show();
+      $("div#add_source_file").hide();
+      $("a#add_source_file").show();
+    })
+  })

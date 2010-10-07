@@ -1,13 +1,74 @@
+= stylesheet_link_tag 'source_files/local_style'
+- elements = @folders + @source_files
+
 %div#crumbs
   = render :partial => "crumbs"
 %div#toolbar
   = render :partial => "toolbar"
 %div#source_files
   %ul
-    - @folders.each do |folder|
-      %li.folder
-        %p= folder.name
-    - @source_files.each do |source_file|
-      %li.source_file
-        %p= source_file.name
-    
+    %li.column.index_icon
+      %ul
+        %li.header &nbsp;
+        - reset_cycle("default")
+        - elements.each do |element|
+          - selected = (element.id.to_s == params[:selected_id])
+          = render :partial => "clickable_row", |
+                   :object => {:element => element,
+                               :color => (selected ? "selected" : cycle("odd", "even")),
+                               :icon => "icon",
+                               :content => "#{element.class.to_s.underscore}.png"}
+    %li.column.index
+      %ul
+        %li.header{:title => "Name"} Name
+        - reset_cycle("default")
+        - elements.each do |element|
+          - selected = (element.id.to_s == params[:selected_id])
+          = render :partial => "clickable_row", |
+                   :object => {:element => element,
+                               :content => element.name,
+                               :color => (selected ? "selected" : cycle("odd", "even"))}
+    %li.column.index
+      %ul
+        %li.header{:title => "Code"} Code
+        - reset_cycle("default")
+        - elements.each do |element|
+          - selected = (element.id.to_s == params[:selected_id])
+          = render :partial => "clickable_row", |
+                   :object => {:element => element,
+                               :content => (element.code if element.is_a? SourceFile),
+                               :color => (selected ? "selected" : cycle("odd", "even"))}
+    %li.column.index
+      %ul
+        %li.header{:title => "Age"} Age
+        - reset_cycle("default")
+        - elements.each do |element|
+          - selected = (element.id.to_s == params[:selected_id])
+          = render :partial => "clickable_row", |
+                   :object => {:element => element,
+                               :content => (element.last_update if element.is_a? SourceFile),
+                               :color => (selected ? "selected" : cycle("odd", "even"))}
+    %li.column.index
+      %ul
+        %li.header{:title => "Message"} Message
+        - reset_cycle("default")
+        - elements.each do |element|
+          - selected = (element.id.to_s == params[:selected_id])
+          = render :partial => "clickable_row", |
+                   :object => {:element => element,
+                               :content => (element.message if element.is_a? SourceFile),
+                               :color => (selected ? "selected last" : cycle("odd last", "even last"))}
+
+= render :partial => "empty" if (@folders + @source_files).blank?
+-# functions for clickable_row
+:javascript
+  $(document).ready(function(){
+    $("li.clickable").hover(
+      function(){
+        $("li." + $(this).attr("id")).addClass("hover")
+      },
+      function(){
+        $("li." + $(this).attr("id")).removeClass("hover")
+      }
+    )
+  })

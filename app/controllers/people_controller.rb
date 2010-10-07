@@ -6,12 +6,12 @@ class PeopleController < ApplicationController
         session[:person_id] = person.id
       end
     end
-    redirect :back
+    redirect_to :back
   end
   
   def logout
     session.delete :person_id
-    redirect :back
+    redirect_to :back
   end
   
 end

@@ -2,24 +2,37 @@
 !border_grey = #DDD
 !column_hover = #98C2EC
 
-body
-  line-height: 1.2em
-
-div.toolbar
+div#toolbar
   clear: both
 
   li.toolbar_button
     float: left
     height: 30px
+    width: 150px
     overflow: hidden
 
-    a.toolbar_button
-      border-top: 1px solid !border_grey
-      border-left: 1px solid !border_grey
-      padding: 7px
+    div.form_element
+      display: none
+      width: 150px
+      height: 24px
+      padding: 3px
       padding-left: 6px
       padding-right: 6px
-      height: 16px
+      border-top: 1px solid !border_grey
+      border-left: 1px solid !border_grey
+      background: !column_grey
+
+    div.form_element.last
+      border-right: 1px solid !border_grey
+
+    a.toolbar_button
+      width: 137px
+      height: 24px
+      border-top: 1px solid !border_grey
+      border-left: 1px solid !border_grey
+      padding: 3px
+      padding-left: 6px
+      padding-right: 6px
       display: block
       float: left
       text-decoration: none
@@ -34,6 +47,7 @@ div.toolbar
         background: !column_hover
 
     a.toolbar_button.last
+      width: 136px
       border-right: 1px solid !border_grey
 
   p
@@ -41,28 +55,25 @@ div.toolbar
     margin: 0px
 
   span.toolbar_button
-    vertical-align: 25%
+    vertical-align: 50%
 
 div.empty
   padding: 3em
 
-div.columns
+div#source_files
   clear: both
 
-  li.new
-    width: 25%
-
   li.index
-    width: 20%
+    width: 23%
+
+  li.index_icon
+    width: 8%
 
   li.column
     float: left
     overflow: auto
     overflow-x: hidden
 
-  li#buttons li.row
-    border-right: 1px solid !border_grey
-    
   li.row.last
     border-right: 1px solid !border_grey
 
@@ -71,7 +82,7 @@ div.columns
 
   li.row.selected
     background-color: !column_hover
-    
+
   li.row.hover
     background-color: !column_hover
 
@@ -85,7 +96,7 @@ div.columns
       width: 100%
       display: block
       padding: .8em
-      
+
     a.clickable_row
       display: block
       width: 100%
@@ -94,55 +105,11 @@ div.columns
       font-weight: normal
       text-decoration: none
 
-    div.buttons.selected
-      a.inline_button
-        border: none
-        margin: 0px
-        padding: 4px
-        padding-top: 5px
-        height: 32px
-        display: block
-        float: right
-        text-decoration: none
-        font-weight: normal
-        font: inherit
-        color: black
-        background: !column_hover
-
-        &:hover, &:active
-          background: white
-
-    div.buttons
-      width: 100%
-      display: block
-      height: 2.6em
-      overflow: hidden
-
-      a.inline_button
-        margin: 0px
-        padding: 4px
-        padding-top: 5px
-        height: 32px
-        display: block
-        float: right
-        text-decoration: none
-        font-weight: normal
-        font: inherit
-        color: black
-
-        &:hover, &:active
-          background: !column_hover
-
-      div.inactive_button
-        margin: 0
-        padding: 4px
-        padding-top: 5px
-        display: block
-        float: right
-        text-decoration: none
-        font-weight: normal
-        font: inherit
-        color: black
+    a.icon
+      padding: 4px
+      padding-left: 1em
+      padding-top: 5px
+      height: 32px
 
     span
       white-space: nowrap
@@ -160,26 +127,10 @@ div.columns
     text-align: left
     text-decoration: none
 
-div.footer
-  clear: both
-  padding-top: 1.2em
-
 /* fixes for ie 6.0 */
 
-* html div.columns li.index
-  width: 19%
-  
-* html div.columns li.new
-  width: 24%
+* html div.columns li.dashboard
+  width: 21%
 
 * html span
   vertical-align: top
-  
-* html div.toolbar
-  position: relative
-  float: left
-  
-* html div.columns
-  position: relative
-  float: left
-  width: 96%
