@@ -1,4 +1,8 @@
-%a.button{:id => id, :href => path, :title => toolbar_button[:title], :class => ("last" if toolbar_button[:last])}
-  %p
-    = image_tag toolbar_button[:icon], :size => "24x24", :alt => ""
-    %span.toolbar_button= toolbar_button[:text]
+
+= link_to (render :partial => "button_content",
+                  :object => {:icon => button[:icon],
+                              :text => button[:text]}),
+          button[:path],
+          :method => button[:method],
+          :title => button[:title],
+          :class => button[:class]

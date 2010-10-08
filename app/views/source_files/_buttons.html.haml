@@ -1,0 +1,24 @@
+%ul
+  %li.toolbar_button
+    = render :partial => "button", |
+             :object => {:text => "Back",
+                         :path => hash_for_source_files_path.merge(:folder_id => @source_file.folder_id),
+                         :icon => "back.png",
+                         :title => "Click here to go back to the containing folder.",
+                         :class => "toolbar_button"}
+  %li.toolbar_button
+    = render :partial => "button", |
+             :object => {:text => "Edit",
+                         :path => edit_source_file_path(:id => @source_file.id),
+                         :method => :put,
+                         :icon => "edit.png",
+                         :title => "Click here to lock and edit the source file.",
+                         :class => "toolbar_button"}
+  %li.toolbar_button
+    = render :partial => "button", |
+             :object => {:text => "Download",
+                         :path => download_source_file_path(:id => @source_file.id),
+                         :method => :put,
+                         :icon => "download.png",
+                         :title => "Click here to lock and download the source file.",
+                         :class => "toolbar_button last"}

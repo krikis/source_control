@@ -1,17 +1,24 @@
 SourceControl::Application.routes.draw do
   root :controller => :source_files, :action => :index
-  
-  resources :source_files, 
-            :only => [:index, :show, :create, :update],
-            :member => {:lock => :put}
-            
-  resource :folder, 
-           :only => [:create, :update]
-  
-  resource :person,
-           :member => {:login => :put, :logout => :put}
-  
-  
+
+  resources :source_files,
+            :only => [:index, :show, :create, :update, :destroy] do
+    member do
+      put :edit
+      put :download
+    end
+  end
+
+  resource :folder,
+           :only => [:create, :update, :destroy]
+
+  resource :person do
+    member do
+      put :login
+      put :logout
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

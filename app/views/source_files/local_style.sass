@@ -55,17 +55,17 @@ div#toolbar
 
     div.form_element
       display: none
-      width: 160px
+      width: 147px
       height: 24px
       padding: 3px
       padding-left: 6px
       padding-right: 6px
       border-top: 1px solid !border_grey
       border-left: 1px solid !border_grey
-      background: !column_grey
 
     div.form_element.last
       border-right: 1px solid !border_grey
+      width: 136px
     
     input.form_element
       font-size: 0.8em
@@ -84,9 +84,6 @@ div#toolbar
       font-weight: normal
       font: inherit
       color: black
-
-      &:link, &:visited
-        background: !column_grey
 
       &:hover, &:active
         background: !column_hover
@@ -178,6 +175,7 @@ div#source_files
     text-decoration: none
     
 div#source_file
+  clear: both
   
   li.file_name
     font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace

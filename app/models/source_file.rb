@@ -4,6 +4,7 @@ class SourceFile < CouchRest::Model::Base
   property :name, String
   property :code, String
   property :lock, String
+  property :locked_at, Time
   property :folder_id, String
   property :last_update, Time
   property :updated_by, String
