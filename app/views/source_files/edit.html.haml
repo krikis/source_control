@@ -5,23 +5,26 @@
   %ul
     %li.header
       &nbsp;
-    %li.content
-      = render :partial => "text_field",
-               :object => {:label => "Path",
-                           :key => "path_name",
-                           :value => @source_file.path_name,
-                           :class => cycle("odd", "even"),
-                           :maxlength => 100}
-    %li.content
-      = render :partial => "text_field",
-               :object => {:label => "FileName",
-                           :key => "name",
-                           :value => @source_file.name,
-                           :class => cycle("odd", "even"),
-                            :maxlength => 30}
-    %li.content
-      = render :partial => "text_box",
-               :object => {:label => "Code",
-                           :key => "code",
-                           :value => @source_file.code,
-                           :class => cycle("odd", "even")}
+    - form_tag source_file_path(:id => @source_file.id), |
+               :id => "edit_source_file",
+               :method => :put do
+      %li.content
+        = render :partial => "text_field",
+                 :object => {:label => "Path",
+                             :key => "path_name",
+                             :value => @source_file.path_name,
+                             :class => cycle("odd", "even"),
+                             :maxlength => 100}
+      %li.content
+        = render :partial => "text_field",
+                 :object => {:label => "FileName",
+                             :key => "name",
+                             :value => @source_file.name,
+                             :class => cycle("odd", "even"),
+                              :maxlength => 30}
+      %li.content
+        = render :partial => "text_box",
+                 :object => {:label => "Code",
+                             :key => "code",
+                             :value => @source_file.code,
+                             :class => cycle("odd", "even")}
