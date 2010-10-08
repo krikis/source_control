@@ -5,6 +5,12 @@ class Folder < CouchRest::Model::Base
   property :parent_id, String
 
   validates_presence_of :name
+  
+  # check uniqueness of name in same folder
+  before_save do |folder|
+    folder.errors.add(:name, :taken, :value => folder.name) if Folder.all.select{|f|f.parent_id == folder.parent_id}.collect{|fldr|fldr.name}.include? folder.name
+    return false unless folder.errors.blank?
+  end
 
   def self.first
     all.first
