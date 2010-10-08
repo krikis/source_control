@@ -1,9 +1,9 @@
 = stylesheet_link_tag 'source_files/local_style'
 %div#toolbar
-  = render :partial => "buttons"
+  = render :partial => "show_buttons"
 %div#source_file
   %ul
-    %li.file_name
-      = @source_file.path_name
-    %li.code
+    %li.header{:title => (@source_file.path_name + @source_file.name)}
+      %span= @source_file.path_name + @source_file.name
+    %li.content
       = @source_file.code

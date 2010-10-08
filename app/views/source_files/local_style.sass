@@ -7,7 +7,7 @@ div#crumbs
   width: 100%
   height: 30px
   margin-bottom: 1em
-  
+
   ul
     height: 30px
 
@@ -16,7 +16,7 @@ div#crumbs
     float: left
     height: 30px
     overflow: hidden
-    
+
     a.separator
       display: block
       float: left
@@ -34,10 +34,10 @@ div#crumbs
       color: black
       padding: .3em
       padding-left: 0px
-    
-    a.crumb.not_last 
-      color: !blue    
-    
+
+    a.crumb.not_last
+      color: !blue
+
       &:hover, &:active
         text-decoration: underline
 
@@ -66,9 +66,12 @@ div#toolbar
     div.form_element.last
       border-right: 1px solid !border_grey
       width: 136px
-    
+
     input.form_element
       font-size: 0.8em
+
+    input.form_element.text
+      font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
 
     a.toolbar_button
       width: 147px
@@ -127,7 +130,7 @@ div#source_files
 
   li.row.hover
     background-color: !column_hover
-    
+
   li.row.blue
     span
       color: !blue
@@ -173,11 +176,11 @@ div#source_files
     padding: .4em 1em .1em 1em
     text-align: left
     text-decoration: none
-    
+
 div#source_file
   clear: both
-  
-  li.file_name
+
+  li.header
     font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
     background-color: #000
     color: #FFF
@@ -186,15 +189,52 @@ div#source_file
     padding: .4em 1em .1em 1em
     text-align: left
     text-decoration: none
-    
-  li.code
+
+  li.content
     font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
-    height: 2.6em
+    min-height: 2.6em
     overflow: hidden
     border-bottom: 1px solid !border_grey
     border-left: 1px solid !border_grey
     border-right: 1px solid !border_grey
-  
+
+  li.label
+    display: block
+    float: left
+    overflow: hidden
+    width: 20%
+
+    div.label
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.8em
+
+  li.value
+    display: block
+    float: left
+    overflow: hidden
+    width: 80%
+
+    div.value
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.5em
+      border-left: 1px solid !border_grey
+
+      input.text
+        font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
+
+      textarea.text
+        font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
+      
+  span
+    white-space: nowrap
+    margin: 0px
+
 
 /* fixes for ie 6.0 */
 

@@ -31,7 +31,7 @@ class SourceFile < CouchRest::Model::Base
   
   # generates the full path of the file
   def path_name
-    path = name
+    path = ""
     if tmp_folder = folder
       path = tmp_folder.name + "/" + path
       while parent = tmp_folder.parent do

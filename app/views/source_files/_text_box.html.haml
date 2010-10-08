@@ -1,0 +1,7 @@
+%ul
+  %li.label
+    %div.label
+      %span= text_box[:label]
+  %li.value
+    %div.value
+      = text_area_tag text_box[:key], text_box[:value], :cols => 100, :rows => 50, :class => "text"

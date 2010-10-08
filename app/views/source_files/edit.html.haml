@@ -1,6 +1,27 @@
+= stylesheet_link_tag 'source_files/local_style'
+%div#toolbar
+  = render :partial => "edit_buttons"
 %div#source_file
   %ul
-    %li
-      render :partial => "form_element",
-             :object => {:label => "Name", 
-                         :value => }
+    %li.header
+      &nbsp;
+    %li.content
+      = render :partial => "text_field",
+               :object => {:label => "Path",
+                           :key => "path_name",
+                           :value => @source_file.path_name,
+                           :class => cycle("odd", "even"),
+                           :maxlength => 100}
+    %li.content
+      = render :partial => "text_field",
+               :object => {:label => "FileName",
+                           :key => "name",
+                           :value => @source_file.name,
+                           :class => cycle("odd", "even"),
+                            :maxlength => 30}
+    %li.content
+      = render :partial => "text_box",
+               :object => {:label => "Code",
+                           :key => "code",
+                           :value => @source_file.code,
+                           :class => cycle("odd", "even")}
