@@ -39,6 +39,10 @@ class SourceFilesController < ApplicationController
   end
   
   def update
+    source_file = SourceFile.find params[:id]
+    source_file.update_attributes params[:source_file]
+    flash[:success] = "Source File #{source_file.name} updated." if source_file.errors.blank?
+    redirect_to source_file_path(:id => source_file.id)
   end
   
   private 

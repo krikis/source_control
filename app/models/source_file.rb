@@ -16,7 +16,7 @@ class SourceFile < CouchRest::Model::Base
   
   # check uniqueness of name in same folder
   before_save do |source_file|
-    source_file.errors.add(:name, :taken, :value => source_file.name) if SourceFile.all.select{|sf|sf.folder_id == source_file.folder_id}.collect{|srcf|srcf.name}.include? source_file.name
+    source_file.errors.add(:name, :taken, :value => source_file.name) if files = SourceFile.all.select{|sf|sf.folder_id == source_file.folder_id and sf.name == source_file.name} and not files.blank? and not files.collect{|srcf|srcf.id}.include? source_file.id
     return false unless source_file.errors.blank?
   end
   

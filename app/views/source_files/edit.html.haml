@@ -11,20 +11,20 @@
       %li.content
         = render :partial => "text_field",
                  :object => {:label => "Path",
-                             :key => "path_name",
+                             :key => "source_file[path_name]",
                              :value => @source_file.path_name,
                              :class => cycle("odd", "even"),
                              :maxlength => 100}
       %li.content
         = render :partial => "text_field",
                  :object => {:label => "FileName",
-                             :key => "name",
+                             :key => "source_file[name]",
                              :value => @source_file.name,
                              :class => cycle("odd", "even"),
                               :maxlength => 30}
       %li.content
         = render :partial => "text_box",
                  :object => {:label => "Code",
-                             :key => "code",
+                             :key => "source_file[code]",
                              :value => @source_file.code,
                              :class => cycle("odd", "even")}

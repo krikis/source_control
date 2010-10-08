@@ -8,7 +8,7 @@
     - parameters.keys.each do |key|
       = hidden_field_tag(key, parameters[key])
     = image_tag toolbar_button[:icon], :size => "24x24", :alt => ""
-    %span.toolbar_button= text_field_tag("name", "", :size => "14", :maxlength => 30, :id => id, :class => "form_element text")
+    %span.toolbar_button= text_field_tag("name", "", :size => "14", :maxlength => 30, :id => id, :class => "form_element")
 %a.toolbar_button{:id => id, :href => path, :title => toolbar_button[:title], :class => ("last" if toolbar_button[:last])}
   %p
     = image_tag toolbar_button[:icon], :size => "24x24", :alt => ""
