@@ -28,7 +28,7 @@
                    :object => {:element => element,
                                :content => "#{element.name}#{"/" if element.is_a? Folder}",
                                :color => (selected ? "selected blue" : cycle("odd blue", "even blue"))}
-    %li.column.index
+    %li.column.index.code
       %ul
         %li.header{:title => "Code"} Code
         - reset_cycle("default")
@@ -46,7 +46,7 @@
           - selected = (element.id.to_s == params[:selected_id])
           = render :partial => "clickable_row", |
                    :object => {:element => element,
-                               :content => (element.last_update if element.is_a? SourceFile),
+                               :content => ("#{time_ago_in_words(element.last_update)} old" if element.is_a? SourceFile and element.last_update),
                                :color => (selected ? "selected" : cycle("odd", "even"))}
     %li.column.index
       %ul

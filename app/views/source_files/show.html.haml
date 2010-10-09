@@ -3,7 +3,12 @@
   = render :partial => "show_buttons"
 %div#source_file
   %ul
-    %li.header{:title => (@source_file.path_name + @source_file.name)}
-      %span= @source_file.path_name + @source_file.name
+    %li.header
+      %ul
+        %li.file_name{:title => (@source_file.path_name + @source_file.name)}
+          %span= @source_file.path_name + @source_file.name
+        - if @source_file.last_update
+          %li.file_status{:title => "Last updated #{time_ago_in_words(@source_file.last_update)} ago. Message: \"#{@source_file.message}\""}
+            %span= "Last updated #{time_ago_in_words(@source_file.last_update)} ago. Message: \"#{@source_file.message}\""
     %li.content.code
       %pre= @source_file.code

@@ -7,7 +7,7 @@
                          :title => "Click here to abort editing the source file.",
                          :class => "toolbar_button"}
   %li.toolbar_button
-    = render :partial => "button", |
+    = render :partial => "save_button", |
              :object => {:text => "Save",
                          :path => source_file_path(:id => @source_file.id),
                          :icon => "save.png",
@@ -17,9 +17,29 @@
 
 :javascript
   $(document).ready(function(){
-    $("a#save_source_file").click(function(){
-      $("form#edit_source_file").submit()
+    // Edit in place form for adding a folder
+    $("a#save_source_file").click(function(event) {
+      $("a#save_source_file").hide();
+      $("div#save_source_file").show();
+      $("input[type=text]#save_source_file").focus();
+      return false;
+    })
+    $("div#save_source_file").keydown(function(event) {
+      if (event.keyCode == 13) {
+        $("form#edit_source_file").submit();
+        return false;
+      } else if (event.keyCode == 27) {
+        $("div#save_source_file").hide();
+        $("a#save_source_file").show();
+        return false;
+      }
+    })
+    $("input#save_source_file").click(function(){
       return false
+    })
+    $(document).click(function(event) {
+      $("div#save_source_file").hide();
+      $("a#save_source_file").show();
     })
   })
 

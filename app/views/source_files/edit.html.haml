@@ -1,13 +1,18 @@
 = stylesheet_link_tag 'source_files/local_style'
-%div#toolbar
-  = render :partial => "edit_buttons"
-%div#source_file
-  %ul
-    %li.header
-      &nbsp;
-    - form_tag source_file_path(:id => @source_file.id), |
-               :id => "edit_source_file",
-               :method => :put do
+- form_tag source_file_path(:id => @source_file.id), |
+         :id => "edit_source_file",
+         :method => :put do
+  %div#toolbar
+    = render :partial => "edit_buttons"
+  %div#source_file
+    %ul
+      %li.header
+        %ul
+          %li.file_name{:title => (@source_file.path_name + @source_file.name)}
+            %span= @source_file.path_name + @source_file.name
+          - if @source_file.last_update
+            %li.file_status{:title => "Last updated #{time_ago_in_words(@source_file.last_update)} ago. Message: \"#{@source_file.message}\""}
+              %span= "Last updated #{time_ago_in_words(@source_file.last_update)} ago. Message: \"#{@source_file.message}\""
       %li.content
         = render :partial => "text_field",
                  :object => {:label => "Path",

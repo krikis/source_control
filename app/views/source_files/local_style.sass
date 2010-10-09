@@ -106,10 +106,13 @@ div#source_files
   clear: both
 
   li.index
-    width: 23%
+    width: 20%
+    
+  li.index.code
+    width: 34%
 
   li.index_icon
-    width: 8%
+    width: 6%
 
   li.column
     float: left
@@ -186,6 +189,17 @@ div#source_file
     padding: .4em 1em .1em 1em
     text-align: left
     text-decoration: none
+    
+    li.file_name
+      display: block
+      float: left
+      width: 50%
+      
+    li.file_status
+      display: block
+      float: left
+      text-align: right
+      width: 50%
 
   li.content
     font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
@@ -226,9 +240,12 @@ div#source_file
       border-left: 1px solid !border_grey
 
       input.text
+        font-size: 1em
         font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
 
       textarea.text
+        font-size: 1em
+        overflow: scroll
         font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
 
   span
