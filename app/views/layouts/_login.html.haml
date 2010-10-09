@@ -1,0 +1,64 @@
+- form_tag login_person_path,
+           :id => "login_person",
+           :method => :put do
+  %ul
+    %li.login
+      %div#placeholder.value
+        = text_field_tag "placeholder", "password", :size => 10, :maxlength => 30, :id => "placeholder", :class => "text"
+      %div#password.value
+        = password_field_tag "password", "", :size => 10, :maxlength => 30, :id => "password", :class => "text"
+    %li.login
+      %div.value
+        = text_field_tag "user_name", "username", :size => 10, :maxlength => 30, :id => "username", :class => "text"
+    %li.login
+      %div.label.uber
+        %span Login:
+        
+:javascript
+  $(document).ready(function(){
+    $("input#username").click(function(){
+      if ($(this).attr("value") == "username"){
+        $(this).attr("value", "")
+        $(this).addClass("active")
+      }      
+    })
+    $("div#placeholder").click(function(){
+      $(this).hide()
+      $("div#password").show()     
+      $("input#password").focus() 
+    })
+    $("input#password").blur(function(event){
+      $("input#password").attr("value", "")
+      $("input#username").attr("value", "")
+      $("input#username").removeClass("active")
+      $("input#username").attr("value", "username")
+      $("div#password").hide()
+      $("div#placeholder").show()
+    })
+    $("input#password").keydown(function(event) {
+      if (event.keyCode == 13) {
+        $("form#login_person").submit();
+        return false
+      } else if (event.keyCode == 27) {
+        $("input#password").blur()
+        return false
+      } else if (event.keyCode == 9)  {
+        return false
+      }
+    })
+    $("input#username").keydown(function(event) {
+      if (event.keyCode == 13) {
+        return false
+      } else if (event.keyCode == 27) {
+        $(this).attr("value", "")
+        $(this).removeClass("active")
+        $(this).attr("value", "username")
+        return false
+      } else if (event.keyCode == 9)  {
+        $("div#placeholder").hide()
+        $("div#password").show()     
+        $("input#password").focus()
+        return false
+      }
+    })
+  })

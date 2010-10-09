@@ -3,7 +3,50 @@
 !column_hover = #98C2EC
 !blue = #4183C4
 
+div#login
+  clear: both
+  height: 30px
+  margin-top: 1em
+  padding-right: 5em
+
+  li.login
+    display: block
+    float: right
+    overflow: hidden
+    height: 2.6em
+
+    div.label
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.8em
+
+    div.value
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.5em
+      
+    div#password
+      display: none
+      
+    input#username
+      color: !border_grey
+      
+    input#username.active
+      color: black
+      
+    input#placeholder
+      color: !border_grey
+
+  input.text
+    font-size: 0.8em
+  
+
 div#crumbs
+  clear: both
   width: 100%
   height: 30px
   margin-bottom: 1em

@@ -12,6 +12,8 @@
       %script{:defer=>"defer", :type=>"text/javascript", :src=>"/javascripts/pngfix.js"}
     %link{:rel=>"Shortcut Icon", :href=>"/favicon.ico"}
   %body
+    #login
+      = render :partial => "layouts/login"
 
     #content
       - if flash[:message]
