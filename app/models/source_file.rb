@@ -2,6 +2,7 @@ class SourceFile < CouchRest::Model::Base
   use_database COUCHDB.database("source_file")
   
   property :name, String
+  property :cached_path_name, String
   property :code, String
   property :lock, String
   property :locked_at, Time
@@ -28,9 +29,20 @@ class SourceFile < CouchRest::Model::Base
   def self.find_roots
     all.select{|sf|sf.folder_id.blank?}.sort_by{|sf|sf.name.andand.downcase || ""}
   end
+
+  def self.find_by_folder_id_and_name(folder_id, name)
+    all.select{|folder|folder.folder_id == folder_id and folder.name == name}.first
+  end
+  
+  # full path of the file
+  def path_name
+    self.cached_path_name ||= generate_path_name
+    save
+    cached_path_name
+  end
   
   # generates the full path of the file
-  def path_name
+  def generate_path_name
     path = ""
     if tmp_folder = folder
       path = tmp_folder.name + "/" + path
@@ -40,6 +52,35 @@ class SourceFile < CouchRest::Model::Base
       end
     end
     "/" + path
+  end
+  
+  # locates the file to the new path if changed
+  def path_name=(path)
+    if not path.blank? and path != cached_path_name
+      check_uniqueness = true
+      folders = path.split("/")
+      folders.shift
+      folders.each_with_index do |name, index|
+        if index == 0
+          parent_id = ""
+        else
+          parent_id = folders[index - 1].id
+        end
+        folder = Folder.find_by_parent_id_and_name parent_id, name
+        unless folder
+          folder = Folder.create(:parent_id => parent_id, :name => name)
+          check_uniqueness = false
+          self.errors.add :path_name, "path couldn't be created" unless folder
+          return unless self.errors.blank?
+        end
+        folders[index] = folder
+      end
+      flder_id = (folders.blank? ? "" : folders.last.id)
+      unless check_uniqueness and sf = SourceFile.find_by_folder_id_and_name(flder_id, self.name)
+        self.update_attributes :folder_id => flder_id,
+                               :cached_path_name => nil
+      end
+    end
   end
   
   # get the person that locked the file

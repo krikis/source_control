@@ -20,6 +20,10 @@ class Folder < CouchRest::Model::Base
   def self.find_roots
     all.select{|folder|folder.parent_id.blank?}.sort_by{|folder|folder.name.andand.downcase || ""}
   end
+  
+  def self.find_by_parent_id_and_name(parent_id, name)
+    all.select{|folder|folder.parent_id == parent_id and folder.name == name}.first
+  end
 
   def parent
     @parent ||= Folder.find self.parent_id
