@@ -21,7 +21,7 @@ class SourceFilesController < ApplicationController
     path = hash_for_source_files_path.merge({:folder_id => params[:folder_id]})
     if @person
       source_file = SourceFile.create params.merge(:last_update => Time.now)
-      flash[:success] = "Source File #{source_file.name} added." if source_file.errors.blank?
+      flash[:success] = "Source file \"#{source_file.name}\" added." if source_file.errors.blank?
       redirect_to path.merge({:selected_id => source_file.id})
     else
       redirect_to path
