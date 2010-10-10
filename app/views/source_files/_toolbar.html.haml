@@ -12,7 +12,7 @@
   %li.toolbar_button
     = render :partial => "toolbar_button", |
              :object => {:text => "Add Folder",
-                         :path => folder_path,
+                         :path => folders_path,
                          :method => :post,
                          :params => {:parent_id => @folder.andand.id},
                          :id => "add_folder",

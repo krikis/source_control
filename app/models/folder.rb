@@ -40,5 +40,11 @@ class Folder < CouchRest::Model::Base
   def source_files
     SourceFile.all.select{|sf|sf.folder_id == id}.sort_by{|sf|sf.name.andand.downcase || ""}
   end
+  
+  def destroy_folder
+    if source_files.inject(true){|cond, sf|cond and sf.destroy_source_file} and children.inject(true){|cond, ch|cond and ch.destroy_folder}
+      self.destroy
+    end
+  end
 
 end

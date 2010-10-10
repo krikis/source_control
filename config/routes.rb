@@ -10,8 +10,8 @@ SourceControl::Application.routes.draw do
     end
   end
 
-  resource :folder,
-           :only => [:create, :update, :destroy]
+  resources :folders,
+            :only => [:create, :destroy]
 
   resource :person,
            :only => [:new, :create, :edit, :update] do

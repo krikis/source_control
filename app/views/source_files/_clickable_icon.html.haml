@@ -1,0 +1,25 @@
+- content = clickable_icon[:content]
+- color = clickable_icon[:color]
+- element = clickable_icon[:element]
+- id = element.id
+- link_class = "clickable_row icon"
+- case element
+  - when Folder
+    - path = folder_path(:id => id)
+  - when SourceFile
+    - path = source_file_path(:id => id)
+    - if person = element.person
+      - content[:image] = (content[:image] + "_disabled")
+      - disabled = true
+  - else
+    - path = :back
+- content[:image] += ".png"
+%li.row.clickable{:class => (clickable_icon[:color] + " #{id}"), :id => id, :title => (clickable_icon[:title] unless disabled)}
+  - unless disabled
+    = link_to render(:partial => "icon", :object => content), |
+              path,
+              :class => link_class,
+              :id => "#{clickable_icon[:id]}_#{id}"
+  - else
+    %div{:class => link_class}
+      = render :partial => "icon", :object => content

@@ -57,8 +57,20 @@
           = render :partial => "clickable_row", |
                    :object => {:element => element,
                                :content => (element.message if element.is_a? SourceFile),
-                               :color => (selected ? "selected last" : cycle("odd last", "even last"))}
-
+                               :color => (selected ? "selected" : cycle("odd", "even"))}
+    %li.column.index_icon
+      %ul
+        %li.header &nbsp;
+        - reset_cycle("default")
+        - elements.each do |element|
+          - selected = (element.id.to_s == params[:selected_id])
+          = render :partial => "clickable_icon", |
+                   :object => {:element => element,
+                               :color => (selected ? "selected last" : cycle("odd last", "even last")),
+                               :content => {:image => "delete"},
+                               :title => "Click here to delete this #{(element.is_a? Folder) ? "folder" : "source file"}.",
+                               :id => "delete"}
+    
 = render :partial => "empty" if (@folders + @source_files).blank?
 -# functions for clickable_row
 :javascript
@@ -72,3 +84,29 @@
       }
     )
   })
+-# delete functions for each row
+- elements.each do |element|
+  :javascript
+    $(document).ready(function(){
+      $("a#delete_#{element.id}").click(function(){
+        if (confirm("Are you sure you want to remove the #{(element.is_a? Folder) ? "folder" : "source file"} \"#{element.name}\"#{(" and all of its contents" if element.is_a? Folder)}?")) { 
+          var f = document.createElement('form')
+          f.style.display = 'none'
+          this.parentNode.appendChild(f)
+          f.method = 'POST'
+          f.action = this.href
+          var h = document.createElement('input')
+          h.setAttribute('type', 'hidden')
+          h.setAttribute('name', 'authenticity_token')
+          h.setAttribute('value', "#{session[:_csrf_token]}")
+          f.appendChild(h)
+          var m = document.createElement('input')
+          m.setAttribute('type', 'hidden')
+          m.setAttribute('name', '_method')
+          m.setAttribute('value', 'delete')
+          f.appendChild(m)
+          f.submit()
+        }  
+        return false
+      })
+    })

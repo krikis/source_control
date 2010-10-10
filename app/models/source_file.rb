@@ -105,4 +105,8 @@ class SourceFile < CouchRest::Model::Base
     folder_id = folder.id
   end
   
+  def destroy_source_file
+    self.destroy unless lock
+  end
+  
 end

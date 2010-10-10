@@ -67,6 +67,12 @@ class SourceFilesController < ApplicationController
                                     :locked_at => Time.now
     end
   end
+  
+  def destroy
+    source_file = SourceFile.find params[:id]
+    source_file.destroy unless source_file.lock
+    redirect_to :back
+  end
 
   private
 
