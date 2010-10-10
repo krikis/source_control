@@ -69,8 +69,10 @@ class SourceFilesController < ApplicationController
   end
   
   def destroy
-    source_file = SourceFile.find params[:id]
-    source_file.destroy unless source_file.lock
+    if @person
+      source_file = SourceFile.find params[:id]
+      source_file.destroy unless source_file.lock
+    end
     redirect_to :back
   end
 

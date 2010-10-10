@@ -12,18 +12,24 @@ class PeopleController < ApplicationController
   end
   
   def edit
-    session[:referer] = request.referer
+    if @person
+      session[:referer] = request.referer
+    else
+      redirect_to :back
+    end
   end
   
   def update
-    updates = params[:person]
-    unless updates[:old_password].blank?
-      @person.change_password params[:person]
-    else
-      updates.delete :password
-      @person.update_attributes updates
+    if @person
+      updates = params[:person]
+      unless updates[:old_password].blank?
+        @person.change_password params[:person]
+      else
+        updates.delete :password
+        @person.update_attributes updates
+      end
+      flash[:success] = "Changes saved to your account." if @person.errors.blank?
     end
-    flash[:success] = "Changes saved to your account." if @person.errors.blank?
     redirect_to session[:referer]
   end
   

@@ -12,11 +12,13 @@ class FoldersController < ApplicationController
   end
   
   def destroy
-    folder = Folder.find params[:id]
-    if folder.destroy_folder
-      flash[:success] = "Folder \"#{folder.name}\" removed."
-    else
-      flash[:message] = "Folder \"#{folder.name}\" couldn't be removed."
+    if @person
+      folder = Folder.find params[:id]
+      if folder.destroy_folder
+        flash[:success] = "Folder \"#{folder.name}\" removed."
+      else
+        flash[:message] = "Folder \"#{folder.name}\" couldn't be removed."
+      end
     end
     redirect_to :back
   end

@@ -18,7 +18,7 @@
                                :color => (selected ? "selected" : cycle("odd", "even")),
                                :icon => "icon",
                                :content => {:image => "#{element.class.to_s.underscore}.png"}}
-    %li.column.index
+    %li.column.index{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Name"} Name
         - reset_cycle("default")
@@ -38,7 +38,7 @@
                    :object => {:element => element,
                                :content => (element.code if element.is_a? SourceFile),
                                :color => (selected ? "selected" : cycle("odd", "even"))}
-    %li.column.index
+    %li.column.index{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Age"} Age
         - reset_cycle("default")
@@ -48,7 +48,7 @@
                    :object => {:element => element,
                                :content => ("changed #{time_ago_in_words(element.last_update)} ago".humanize if element.is_a? SourceFile and element.last_update),
                                :color => (selected ? "selected" : cycle("odd", "even"))}
-    %li.column.index
+    %li.column.index{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Message"} Message
         - reset_cycle("default")
@@ -57,19 +57,20 @@
           = render :partial => "clickable_row", |
                    :object => {:element => element,
                                :content => (element.message if element.is_a? SourceFile),
-                               :color => (selected ? "selected" : cycle("odd", "even"))}
-    %li.column.index_icon
-      %ul
-        %li.header &nbsp;
-        - reset_cycle("default")
-        - elements.each do |element|
-          - selected = (element.id.to_s == params[:selected_id])
-          = render :partial => "clickable_icon", |
-                   :object => {:element => element,
-                               :color => (selected ? "selected last" : cycle("odd last", "even last")),
-                               :content => {:image => "delete"},
-                               :title => "Click here to delete this #{(element.is_a? Folder) ? "folder" : "source file"}.",
-                               :id => "delete"}
+                               :color => (selected ? "selected#{" last" unless @person}" : cycle("odd#{" last" unless @person}", "even#{" last" unless @person}"))}
+    - if @person
+      %li.column.index_icon
+        %ul
+          %li.header &nbsp;
+          - reset_cycle("default")
+          - elements.each do |element|
+            - selected = (element.id.to_s == params[:selected_id])
+            = render :partial => "clickable_icon", |
+                     :object => {:element => element,
+                                 :color => (selected ? "selected last" : cycle("odd last", "even last")),
+                                 :content => {:image => "delete"},
+                                 :title => "Click here to delete this #{(element.is_a? Folder) ? "folder" : "source file"}.",
+                                 :id => "delete"}
     
 = render :partial => "empty" if (@folders + @source_files).blank?
 -# functions for clickable_row

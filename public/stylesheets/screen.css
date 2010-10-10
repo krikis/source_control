@@ -194,6 +194,8 @@ div.empty {
 div#source_files {
   clear: both; }
   div#source_files li.index {
+    width: 20%; }
+  div#source_files li.index.login {
     width: 18%; }
   div#source_files li.index.code {
     width: 34%; }
