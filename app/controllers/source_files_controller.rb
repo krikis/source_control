@@ -30,13 +30,35 @@ class SourceFilesController < ApplicationController
   end
 
   def edit
-    if @person and request.put?
-      @source_file = SourceFile.find params[:id]
+    @source_file = SourceFile.find params[:id]
+    if @source_file and @person and request.put? and
+       @source_file.lock.blank? or @source_file.lock == @person.id
       @source_file.update_attributes :lock => @person.id,
                                      :locked_at => Time.now
     else
+      if @source_file and person = @source_file.person
+        flash[:error] = "The source file is locked by #{person.name}!"
+      end
       redirect_to source_file_path(:id => params[:id])
     end
+  end
+
+  def update
+    source_file = SourceFile.find params[:id]
+    if source_file and @person
+      source_file.update_attributes params[:source_file].merge(:last_update => Time.now, :lock => nil, :locked_at => nil)
+      flash[:success] = "Source File #{source_file.name} updated." if source_file.errors.blank?
+    end  
+    redirect_to source_file_path(:id => params[:id])
+  end
+  
+  def unlock
+    source_file = SourceFile.find params[:id]
+    if source_file and @person and @person == source_file.person
+      source_file.update_attributes :lock => nil, 
+                                    :locked_at => nil
+    end                                
+    redirect_to source_file_path(:id => params[:id])
   end
 
   def download
@@ -48,15 +70,6 @@ class SourceFilesController < ApplicationController
       source_file.update_attributes :lock => @person.id,
                                     :locked_at => Time.now
     end
-  end
-
-  def update
-    if @person
-      source_file = SourceFile.find params[:id]
-      source_file.update_attributes params[:source_file].merge(:last_update => Time.now)
-      flash[:success] = "Source File #{source_file.name} updated." if source_file.errors.blank?
-    end  
-    redirect_to source_file_path(:id => params[:id])
   end
 
   private

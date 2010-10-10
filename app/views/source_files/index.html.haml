@@ -3,8 +3,9 @@
 
 %div#crumbs
   = render :partial => "crumbs"
-%div#toolbar
-  = render :partial => "toolbar"
+- if @person
+  %div#toolbar
+    = render :partial => "toolbar"
 %div#source_files
   %ul
     %li.column.index_icon

@@ -6,6 +6,7 @@ SourceControl::Application.routes.draw do
     member do
       put :edit
       put :download
+      put :unlock
     end
   end
 

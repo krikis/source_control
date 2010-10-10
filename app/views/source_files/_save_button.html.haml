@@ -3,7 +3,7 @@
 - classes = save_button[:class]
 %div.form_element{:id => id, :class => classes}
   = image_tag save_button[:icon], :size => "24x24", :alt => ""
-  %span.toolbar_button= text_field_tag("source_file[message]", "", :size => "14", :maxlength => 30, :id => id, :class => "form_element")
+  %span.toolbar_button= text_field_tag("source_file[message]", "", :size => "14", :maxlength => 30, :id => id, :class => "form_element", :title => save_button[:text_field_title])
 %a.toolbar_button{:id => id, :href => path, :title => save_button[:title], :class => classes}
   %p
     = image_tag save_button[:icon], :size => "24x24", :alt => ""

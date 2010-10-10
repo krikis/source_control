@@ -7,6 +7,7 @@
                          :params => {:folder_id => @folder.andand.id},
                          :id => "add_source_file",
                          :icon => "add_source_file.png",
+                         :text_field_title => "Add a name for the new source file.",
                          :title => "Click here to add a source file."}
   %li.toolbar_button
     = render :partial => "toolbar_button", |
@@ -17,6 +18,7 @@
                          :id => "add_folder",
                          :icon => "add_folder.png",
                          :title => "Click here to add a folder.",
+                         :text_field_title => "Add a name for the new folder.",
                          :last => true}
                          
 :javascript
@@ -67,8 +69,10 @@
     })
     $(document).click(function(event) {
       $("div#add_folder").hide();
+      $("input[type=text]#add_folder").attr("value", "")
       $("a#add_folder").show();
       $("div#add_source_file").hide();
+      $("input[type=text]#add_source_file").attr("value", "")
       $("a#add_source_file").show();
     })
   })

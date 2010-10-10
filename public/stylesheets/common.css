@@ -5,7 +5,8 @@ body {
   line-height: 1.2em; }
 
 #content {
-  padding: 5em; }
+  padding: 5em;
+  padding-top: 2em; }
 
 #flash {
   padding: 0.7em;
