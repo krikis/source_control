@@ -22,28 +22,38 @@ div#login
       min-height: 1em
       padding: 0.8em
 
+    div.label.uber
+      color: !blue
+
+    a#log_out  
+      text-decoration: none
+      color: !blue
+
+      &:hover, &:active
+        text-decoration: underline
+
     div.value
       display: block
       float: left
       width: 100%
       min-height: 1em
       padding: 0.5em
-      
+
     div#password
       display: none
-      
+
     input#username
       color: !border_grey
-      
+
     input#username.active
       color: black
-      
+
     input#placeholder
       color: !border_grey
 
   input.text
     font-size: 0.8em
-  
+
 
 div#crumbs
   clear: both
@@ -150,7 +160,7 @@ div#source_files
 
   li.index
     width: 20%
-    
+
   li.index.code
     width: 34%
 
@@ -232,12 +242,12 @@ div#source_file
     padding: .4em 1em .1em 1em
     text-align: left
     text-decoration: none
-    
+
     li.file_name
       display: block
       float: left
       width: 50%
-      
+
     li.file_status
       display: block
       float: left

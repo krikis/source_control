@@ -48,6 +48,7 @@ class SourceFilesController < ApplicationController
   private 
   
   def initialize_request
+    super
     @folder = Folder.find params[:folder_id]
   end
   

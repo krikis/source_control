@@ -11,9 +11,12 @@
     /[if lt IE 7]
       %script{:defer=>"defer", :type=>"text/javascript", :src=>"/javascripts/pngfix.js"}
     %link{:rel=>"Shortcut Icon", :href=>"/favicon.ico"}
-  %body
+  %body  
     #login
-      = render :partial => "layouts/login"
+      - if @person
+        = render :partial => "layouts/account"
+      - else
+        = render :partial => "layouts/login"
 
     #content
       - if flash[:message]
