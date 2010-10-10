@@ -32,13 +32,10 @@ class SourceFilesController < ApplicationController
   def edit
     @source_file = SourceFile.find params[:id]
     if @source_file and @person and request.put? and
-       @source_file.lock.blank? or @source_file.lock == @person.id
+       (@source_file.lock.blank? or @source_file.lock == @person.id)
       @source_file.update_attributes :lock => @person.id,
                                      :locked_at => Time.now
     else
-      if @source_file and person = @source_file.person
-        flash[:error] = "The source file is locked by #{person.name}!"
-      end
       redirect_to source_file_path(:id => params[:id])
     end
   end

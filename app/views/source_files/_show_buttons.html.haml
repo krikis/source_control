@@ -6,7 +6,7 @@
                          :icon => "back.png",
                          :title => "Click here to go back to the containing folder.",
                          :class => "toolbar_button"}
-  - if @person
+  - if @person and (@source_file.lock.blank? or @person.id == @source_file.lock)
     %li.toolbar_button
       = render :partial => "button", |
                :object => {:text => "Edit",
