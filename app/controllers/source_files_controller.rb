@@ -43,7 +43,7 @@ class SourceFilesController < ApplicationController
     source_file = SourceFile.find params[:id]
     if source_file and @person
       source_file.update_attributes params[:source_file].merge(:last_update => Time.now, :lock => nil, :locked_at => nil)
-      flash[:success] = "Source File #{source_file.name} updated." if source_file.errors.blank?
+      flash[:success] = "Source file \"#{source_file.name}\" updated." if source_file.errors.blank?
     end  
     redirect_to source_file_path(:id => params[:id])
   end
