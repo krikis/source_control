@@ -4,16 +4,21 @@
 - color = "selected" if clickable_row[:selected]
 - element = clickable_row[:element]
 - id = element.id
+- link_class = (icon ? "clickable_row icon" : "clickable_row")
 - case element
   - when Folder
     - path = hash_for_source_files_path
     - path[:folder_id] = id
   - when SourceFile
     - path = hash_for_source_file_path(:id => id)
+    - if person = element.person
+      - if icon
+        - content = {:image => "lock.png", :title => "Locked by #{person.name} #{time_ago_in_words(element.locked_at)} ago."}
+      - else
+        - link_class += " lock"
   - else
     - path = :back
 %li.row.clickable{:class => (clickable_row[:color] + " #{id}"), :title => (content unless icon), :id => id}
-  - link_class = (icon ? "clickable_row icon" : "clickable_row")
   = link_to render(:partial => (icon || "text"), :object => content), |
             path,
             :class => link_class
