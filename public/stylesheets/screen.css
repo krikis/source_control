@@ -16,10 +16,10 @@ div#login {
       padding: 0.8em; }
     div#login li.login div.label.uber {
       color: #4183c4; }
-    div#login li.login a#log_out {
+    div#login li.login a {
       text-decoration: none;
       color: #4183c4; }
-      div#login li.login a#log_out:hover, div#login li.login a#log_out:active {
+      div#login li.login a:hover, div#login li.login a:active {
         text-decoration: underline; }
     div#login li.login div.value {
       display: block;
@@ -27,6 +27,9 @@ div#login {
       width: 100%;
       min-height: 1em;
       padding: 0.5em; }
+      div#login li.login div.value span {
+        min-height: 1em;
+        vertical-align: -30%; }
     div#login li.login div#password {
       display: none; }
     div#login li.login input#username {
@@ -37,6 +40,58 @@ div#login {
       color: #dddddd; }
   div#login input.text {
     font-size: 0.8em; }
+
+div#person {
+  clear: both; }
+  div#person li.header {
+    background-color: black;
+    color: white;
+    display: block;
+    height: 1.5em;
+    padding: 0.4em 1em 0.1em 1em;
+    text-align: left;
+    text-decoration: none; }
+  div#person li.content {
+    min-height: 2.6em;
+    overflow: hidden;
+    border-bottom: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd; }
+  div#person li.label {
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 20%; }
+    div#person li.label div.label {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.8em; }
+  div#person li.value {
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 80%; }
+    div#person li.value div.value {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.5em;
+      border-left: 1px solid #dddddd; }
+      div#person li.value div.value input.text {
+        font-size: 1em; }
+    div#person li.value div.text_value {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.8em;
+      border-left: 1px solid #dddddd; }
+  div#person span {
+    white-space: nowrap;
+    margin: 0px; }
 
 div#crumbs {
   clear: both;

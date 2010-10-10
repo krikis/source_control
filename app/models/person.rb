@@ -70,8 +70,6 @@ class Person < CouchRest::Model::Base
       self.errors.add :password, "The new password can't be blank."
     elsif params[:password].size < 8
       self.errors.add :password, "The new password should be at least 8 characters long."
-    elsif params[:password].size > 30
-      self.errors.add :password, "The new password should be at most 30 characters long."
     elsif params[:password] != params[:password_confirmation]
       self.errors.add :password_confirmation, "The new password and its confirmation don't match."
     end

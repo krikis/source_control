@@ -25,7 +25,7 @@ div#login
     div.label.uber
       color: !blue
 
-    a#log_out  
+    a
       text-decoration: none
       color: !blue
 
@@ -38,6 +38,10 @@ div#login
       width: 100%
       min-height: 1em
       padding: 0.5em
+      
+      span
+        min-height: 1em
+        vertical-align: -30%
 
     div#password
       display: none
@@ -54,6 +58,66 @@ div#login
   input.text
     font-size: 0.8em
 
+div#person
+  clear: both
+
+  li.header
+    background-color: #000
+    color: #FFF
+    display: block
+    height: 1.5em
+    padding: .4em 1em .1em 1em
+    text-align: left
+    text-decoration: none
+
+  li.content
+    min-height: 2.6em
+    overflow: hidden
+    border-bottom: 1px solid !border_grey
+    border-left: 1px solid !border_grey
+    border-right: 1px solid !border_grey
+
+  li.label
+    display: block
+    float: left
+    overflow: hidden
+    width: 20%
+
+    div.label
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.8em
+
+  li.value
+    display: block
+    float: left
+    overflow: hidden
+    width: 80%
+
+    div.value
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.5em
+      border-left: 1px solid !border_grey
+
+      input.text
+        font-size: 1em
+      
+    div.text_value
+      display: block
+      float: left
+      width: 100%
+      min-height: 1em
+      padding: 0.8em
+      border-left: 1px solid !border_grey
+
+  span
+    white-space: nowrap
+    margin: 0px
 
 div#crumbs
   clear: both

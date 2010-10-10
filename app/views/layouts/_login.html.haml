@@ -3,6 +3,14 @@
            :method => :put do
   %ul
     %li.login
+      %div.label.uber
+        = link_to "Sign up",
+                   new_person_path
+    %li.login
+      %div.value.separator
+        %span 
+          |
+    %li.login
       %div#placeholder.value
         = text_field_tag "placeholder", "password", :size => 10, :maxlength => 30, :id => "placeholder", :class => "text"
       %div#password.value
@@ -13,19 +21,19 @@
     %li.login
       %div.label.uber
         %span Login:
-        
+
 :javascript
   $(document).ready(function(){
     $("input#username").click(function(){
       if ($(this).attr("value") == "username"){
         $(this).attr("value", "")
         $(this).addClass("active")
-      }      
+      }
     })
     $("div#placeholder").click(function(){
       $(this).hide()
-      $("div#password").show()     
-      $("input#password").focus() 
+      $("div#password").show()
+      $("input#password").focus()
     })
     $("input#password").blur(function(event){
       $("input#password").attr("value", "")
@@ -56,7 +64,7 @@
         return false
       } else if (event.keyCode == 9)  {
         $("div#placeholder").hide()
-        $("div#password").show()     
+        $("div#password").show()
         $("input#password").focus()
         return false
       }

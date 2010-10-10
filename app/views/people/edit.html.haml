@@ -1,35 +1,41 @@
 - form_tag person_path, |
-           :id => "person" do
+           :id => "person",
+           :method => :put do
   %div#toolbar
-    = render :partial => "person_buttons", :object => {:submit_method => "post"}
+    = render :partial => "person_buttons"
   %div#person
     %ul
       %li.header{:title => "Create your account."}
-        %span= "Create your account."
+        %span= "Change your settings."
       %li.content
         = render :partial => "text_field",
-                 :object => {:label => "Name*",
+                 :object => {:label => "Name",
                              :key => "person[name]",
-                             :value => "",
+                             :value => @person.name,
                              :class => cycle("odd", "even"),
                              :maxlength => 30}
       %li.content
-        = render :partial => "text_field",
-                 :object => {:label => "UserName*",
-                             :key => "person[user_name]",
+        = render :partial => "text",
+                 :object => {:label => "UserName",
+                             :value => @person.user_name,
+                             :class => cycle("odd", "even")}
+      %li.content
+        = render :partial => "password_field",
+                 :object => {:label => "Old Password",
+                             :key => "person[old_password]",
                              :value => "",
                              :class => cycle("odd", "even"),
                              :maxlength => 30}
       %li.content
         = render :partial => "password_field",
-                 :object => {:label => "Password*",
+                 :object => {:label => "Password",
                              :key => "person[password]",
                              :value => "",
                              :class => cycle("odd", "even"),
                              :maxlength => 30}
       %li.content
         = render :partial => "password_field",
-                 :object => {:label => "Password Confirmation*",
+                 :object => {:label => "Password Confirmation",
                              :key => "person[password_confirmation]",
                              :value => "",
                              :class => cycle("odd", "even"),
@@ -37,7 +43,6 @@
       
 :javascript
   $(document).ready(function(){
-    $("input#person_name").focus()
     $(document).keydown(function(event) {
       if (event.keyCode == 13) {
         $("form#person").submit()

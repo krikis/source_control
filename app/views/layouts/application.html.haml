@@ -14,10 +14,11 @@
     %link{:rel=>"Shortcut Icon", :href=>"/favicon.ico"}
   %body  
     #login
-      - if @person
-        = render :partial => "layouts/account"
-      - else
-        = render :partial => "layouts/login"
+      - unless params[:controller] == "people"
+        - if @person
+          = render :partial => "layouts/account"
+        - else
+          = render :partial => "layouts/login"
 
     #content
       - if flash[:message]

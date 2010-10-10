@@ -1,14 +1,21 @@
 %ul
   %li.login
-    %div#placeholder.value
+    %div.value
       = link_to "Log out",
                 logout_person_path,
                 :id => "log_out"
   %li.login
-    %div#placeholder.value
+    %div.value
       |
   %li.login
-    %div#placeholder.value
+    %div.value
+      = link_to "Account",
+                edit_person_path
+  %li.login
+    %div.value
+      |
+  %li.login
+    %div.value
       = "Logged in as #{@person.name}"
       
 :javascript

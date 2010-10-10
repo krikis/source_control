@@ -10,16 +10,15 @@
     = render :partial => "button", |
              :object => {:text => "Save",
                          :path => person_path,
-                         :method => :post,
                          :icon => "save.png",
                          :title => "Click here create your account.",
                          :id => "save_person",
-                         :class => "toolbar_button"}
+                         :class => "toolbar_button last"}
 
 :javascript
   $(document).ready(function(){
     $("a#save_person").click(function(){
-      $("form#create_person").submit()
+      $("form#person").submit()
       return false
     })
   })
