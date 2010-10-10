@@ -2,7 +2,7 @@ SourceControl::Application.routes.draw do
   root :controller => :source_files, :action => :index
 
   resources :source_files,
-            :only => [:index, :show, :create, :update, :destroy] do
+            :only => [:index, :show, :create, :edit, :update, :destroy] do
     member do
       put :edit
       put :download
