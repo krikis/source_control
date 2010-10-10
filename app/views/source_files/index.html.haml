@@ -47,7 +47,7 @@
           - selected = (element.id.to_s == params[:selected_id])
           = render :partial => "clickable_row", |
                    :object => {:element => element,
-                               :content => ("#{time_ago_in_words(element.last_update)} old".humanize if element.is_a? SourceFile and element.last_update),
+                               :content => ("changed #{time_ago_in_words(element.last_update)} ago".humanize if element.is_a? SourceFile and element.last_update),
                                :color => (selected ? "selected" : cycle("odd", "even"))}
     %li.column.index
       %ul

@@ -1,0 +1,4 @@
+%div.disabled_button{:title => disabled_button[:title]}
+  = render :partial => "button_content",
+           :object => {:icon => disabled_button[:icon],
+                       :text => disabled_button[:text]}
