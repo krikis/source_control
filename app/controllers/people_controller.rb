@@ -1,5 +1,21 @@
 class PeopleController < ApplicationController
   
+  def new
+    session[:referer] = request.referer
+  end
+  
+  def create
+    @back = session[:referer]
+  end
+  
+  def edit
+    session[:referer] = request.referer
+  end
+  
+  def update
+    @back = session[:referer]
+  end
+  
   def login
     session.delete :person_id
     unless params[:user_name].blank? or params[:password].blank?

@@ -1,0 +1,268 @@
+div#login {
+  clear: both;
+  height: 30px;
+  margin-top: 1em;
+  padding-right: 5em; }
+  div#login li.login {
+    display: block;
+    float: right;
+    overflow: hidden;
+    height: 2.6em; }
+    div#login li.login div.label {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.8em; }
+    div#login li.login div.label.uber {
+      color: #4183c4; }
+    div#login li.login a#log_out {
+      text-decoration: none;
+      color: #4183c4; }
+      div#login li.login a#log_out:hover, div#login li.login a#log_out:active {
+        text-decoration: underline; }
+    div#login li.login div.value {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.5em; }
+    div#login li.login div#password {
+      display: none; }
+    div#login li.login input#username {
+      color: #dddddd; }
+    div#login li.login input#username.active {
+      color: black; }
+    div#login li.login input#placeholder {
+      color: #dddddd; }
+  div#login input.text {
+    font-size: 0.8em; }
+
+div#crumbs {
+  clear: both;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 1em; }
+  div#crumbs ul {
+    height: 30px; }
+  div#crumbs li.crumb {
+    display: block;
+    float: left;
+    height: 30px;
+    overflow: hidden; }
+    div#crumbs li.crumb a.separator {
+      display: block;
+      float: left;
+      font-size: 1.5em;
+      padding: 0.3em;
+      padding-left: 0px; }
+    div#crumbs li.crumb a.crumb {
+      display: block;
+      float: left;
+      text-decoration: none;
+      font-weight: normal;
+      font: inherit;
+      font-size: 1.3em;
+      color: black;
+      padding: 0.3em;
+      padding-left: 0px; }
+    div#crumbs li.crumb a.crumb.not_last {
+      color: #4183c4; }
+      div#crumbs li.crumb a.crumb.not_last:hover, div#crumbs li.crumb a.crumb.not_last:active {
+        text-decoration: underline; }
+    div#crumbs li.crumb a.crumb.not_last.uber {
+      font-weight: bolder; }
+
+div#toolbar {
+  clear: both; }
+  div#toolbar li.toolbar_button {
+    float: left;
+    height: 30px;
+    width: 150px;
+    overflow: hidden; }
+    div#toolbar li.toolbar_button div.form_element {
+      display: none;
+      width: 147px;
+      height: 24px;
+      padding: 3px;
+      padding-left: 6px;
+      padding-right: 6px;
+      border-top: 1px solid #dddddd;
+      border-left: 1px solid #dddddd; }
+    div#toolbar li.toolbar_button div.form_element.last {
+      border-right: 1px solid #dddddd;
+      width: 136px; }
+    div#toolbar li.toolbar_button input.form_element {
+      font-size: 0.8em; }
+    div#toolbar li.toolbar_button a.toolbar_button {
+      width: 147px;
+      height: 24px;
+      border-top: 1px solid #dddddd;
+      border-left: 1px solid #dddddd;
+      padding: 3px;
+      padding-left: 6px;
+      padding-right: 6px;
+      display: block;
+      float: left;
+      text-decoration: none;
+      font-weight: normal;
+      font: inherit;
+      color: black; }
+      div#toolbar li.toolbar_button a.toolbar_button:hover, div#toolbar li.toolbar_button a.toolbar_button:active {
+        background: #98c2ec; }
+    div#toolbar li.toolbar_button a.toolbar_button.last {
+      width: 136px;
+      border-right: 1px solid #dddddd; }
+    div#toolbar li.toolbar_button div.disabled_button {
+      width: 147px;
+      height: 24px;
+      border-top: 1px solid #dddddd;
+      border-left: 1px solid #dddddd;
+      padding: 3px;
+      padding-left: 6px;
+      padding-right: 6px;
+      display: block;
+      float: left;
+      text-decoration: none;
+      font-weight: normal;
+      font: inherit;
+      color: #dddddd; }
+  div#toolbar p {
+    white-space: nowrap;
+    margin: 0px; }
+  div#toolbar span.toolbar_button {
+    vertical-align: 50%; }
+
+div.empty {
+  padding: 3em; }
+
+div#source_files {
+  clear: both; }
+  div#source_files li.index {
+    width: 20%; }
+  div#source_files li.index.code {
+    width: 34%; }
+  div#source_files li.index_icon {
+    width: 6%; }
+  div#source_files li.column {
+    float: left;
+    overflow: auto;
+    overflow-x: hidden; }
+  div#source_files li.row.last {
+    border-right: 1px solid #dddddd; }
+  div#source_files li.row.even {
+    background-color: #eeeeee; }
+  div#source_files li.row.selected {
+    background-color: #98c2ec; }
+  div#source_files li.row.hover {
+    background-color: #98c2ec; }
+  div#source_files li.row.blue span {
+    color: #4183c4; }
+  div#source_files li.row {
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+    height: 2.6em;
+    overflow: hidden;
+    border-bottom: 1px solid #dddddd;
+    border-left: 1px solid #dddddd; }
+    div#source_files li.row div.row {
+      width: 100%;
+      display: block;
+      padding: 0.8em; }
+    div#source_files li.row a.clickable_row {
+      display: block;
+      width: 100%;
+      padding: 0.8em;
+      color: black;
+      font-weight: normal;
+      text-decoration: none; }
+    div#source_files li.row a.clickable_row.lock span {
+      color: red; }
+    div#source_files li.row a.icon {
+      padding: 4px;
+      padding-left: 1em;
+      padding-top: 5px;
+      height: 32px; }
+    div#source_files li.row span {
+      white-space: nowrap;
+      margin: 0px; }
+    div#source_files li.row input {
+      line-height: inherit; }
+  div#source_files li.header {
+    background-color: black;
+    color: white;
+    display: block;
+    height: 1.3em;
+    padding: 0.4em 1em 0.1em 1em;
+    text-align: left;
+    text-decoration: none; }
+
+div#source_file {
+  clear: both; }
+  div#source_file li.header {
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+    background-color: black;
+    color: white;
+    display: block;
+    height: 1.5em;
+    padding: 0.4em 1em 0.1em 1em;
+    text-align: left;
+    text-decoration: none; }
+    div#source_file li.header li.file_name {
+      display: block;
+      float: left;
+      width: 50%; }
+    div#source_file li.header li.file_status {
+      display: block;
+      float: left;
+      text-align: right;
+      width: 50%; }
+      div#source_file li.header li.file_status span.lock {
+        color: red; }
+  div#source_file li.content {
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+    min-height: 2.6em;
+    overflow: hidden;
+    border-bottom: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd; }
+  div#source_file li.content.code {
+    padding: 0.8em; }
+  div#source_file li.label {
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 20%; }
+    div#source_file li.label div.label {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.8em; }
+  div#source_file li.value {
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 80%; }
+    div#source_file li.value div.value {
+      display: block;
+      float: left;
+      width: 100%;
+      min-height: 1em;
+      padding: 0.5em;
+      border-left: 1px solid #dddddd; }
+      div#source_file li.value div.value input.text {
+        font-size: 1em;
+        font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace; }
+      div#source_file li.value div.value textarea.text {
+        font-size: 1em;
+        font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace; }
+  div#source_file span {
+    white-space: nowrap;
+    margin: 0px; }
+
+/* fixes for ie 6.0 */
+* html div.columns li.dashboard {
+  width: 21%; }
+
+* html span {
+  vertical-align: top; }

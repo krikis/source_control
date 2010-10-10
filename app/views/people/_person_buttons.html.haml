@@ -1,0 +1,26 @@
+%ul
+  %li.toolbar_button
+    = render :partial => "button", |
+             :object => {:text => "Back",
+                         :path => request.referer,
+                         :icon => "back.png",
+                         :title => "Click here go back.",
+                         :class => "toolbar_button"}
+  %li.toolbar_button
+    = render :partial => "button", |
+             :object => {:text => "Save",
+                         :path => person_path,
+                         :method => :post,
+                         :icon => "save.png",
+                         :title => "Click here create your account.",
+                         :id => "save_person",
+                         :class => "toolbar_button"}
+
+:javascript
+  $(document).ready(function(){
+    $("a#save_person").click(function(){
+      $("form#create_person").submit()
+      return false
+    })
+  })
+

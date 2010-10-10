@@ -1,0 +1,37 @@
+- form_tag person_path, |
+         :id => "create_person" do
+  %div#toolbar
+    = render :partial => "person_buttons"
+  %div#person
+    %ul
+      %li.header{:title => "Create your account."}
+        %span= "Create your account."
+      %li.content
+        = render :partial => "text_field",
+                 :object => {:label => "Name",
+                             :key => "person[name]",
+                             :value => "",
+                             :class => cycle("odd", "even"),
+                             :maxlength => 30}
+      %li.content
+        = render :partial => "text_field",
+                 :object => {:label => "UserName",
+                             :key => "person[user_name]",
+                             :value => "",
+                             :class => cycle("odd", "even"),
+                             :maxlength => 30}
+      %li.content
+        = render :partial => "password_field",
+                 :object => {:label => "Password",
+                             :key => "person[password]",
+                             :value => "",
+                             :class => cycle("odd", "even"),
+                             :maxlength => 30}
+      %li.content
+        = render :partial => "password_field",
+                 :object => {:label => "Password Confirmation",
+                             :key => "person[password_confirmation]",
+                             :value => "",
+                             :class => cycle("odd", "even"),
+                             :maxlength => 30}
+      

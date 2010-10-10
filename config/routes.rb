@@ -13,7 +13,8 @@ SourceControl::Application.routes.draw do
   resource :folder,
            :only => [:create, :update, :destroy]
 
-  resource :person do
+  resource :person,
+           :only => [:new, :create, :edit, :update] do
     member do
       put :login
       put :logout
