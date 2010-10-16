@@ -34,10 +34,12 @@
         - reset_cycle("default")
         - elements.each do |element|
           - selected = (element.id.to_s == params[:selected_id])
+          - content = "Locked by #{element.person.andand.name} #{time_ago_in_words(element.locked_at)} ago." if element.is_a? SourceFile and element.lock
+          - content ||= truncate(element.code, :length => 100) if element.is_a? SourceFile
           = render :partial => "clickable_row", |
                    :object => {:element => element,
-                               :content => (element.code if element.is_a? SourceFile),
-                               :color => (selected ? "selected" : cycle("odd", "even"))}
+                               :content => content,
+                               :color => "code #{selected ? "selected" : cycle("odd", "even")}"}
     %li.column.index{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Age"} Age
@@ -47,7 +49,7 @@
           = render :partial => "clickable_row", |
                    :object => {:element => element,
                                :content => ("Changed #{time_ago_in_words(element.last_update)} ago" if element.is_a? SourceFile and element.last_update),
-                               :color => (selected ? "selected" : cycle("odd", "even"))}
+                               :color => "age #{selected ? "selected" : cycle("odd", "even")}"}
     %li.column.index{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Message"} Message
@@ -57,7 +59,7 @@
           = render :partial => "clickable_row", |
                    :object => {:element => element,
                                :content => (element.message if element.is_a? SourceFile),
-                               :color => (selected ? "selected#{" last" unless @person}" : cycle("odd#{" last" unless @person}", "even#{" last" unless @person}"))}
+                               :color => "message #{selected ? "selected#{" last" unless @person}" : cycle("odd#{" last" unless @person}", "even#{" last" unless @person}")}"}
     - if @person
       %li.column.index_icon
         %ul
@@ -112,5 +114,5 @@
       })
     })
 -# add ajax refreshing of locked source files
-= render :partial => "ajax_refresh",
+= render :partial => "index_refresh",
          :object => {:path => hash_for_source_files_path.merge({:folder_id => @folder.andand.id, :format => :json})}

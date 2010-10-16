@@ -33,8 +33,7 @@ class SourceFilesController < ApplicationController
     if @source_file and @person and request.put? and
        (@source_file.lock.blank? or @source_file.lock == @person.id)
       @source_file.update_attributes :lock => @person.id,
-                                     :locked_at => Time.now,
-                                     :last_update => Time.now
+                                     :locked_at => Time.now
     else
       redirect_to source_file_path(:id => params[:id])
     end
@@ -53,8 +52,7 @@ class SourceFilesController < ApplicationController
     source_file = SourceFile.find params[:id]
     if source_file and @person and @person == source_file.person
       source_file.update_attributes :lock => nil, 
-                                    :locked_at => nil,
-                                    :last_update => Time.now
+                                    :locked_at => nil
     end                                
     redirect_to source_file_path(:id => params[:id])
   end

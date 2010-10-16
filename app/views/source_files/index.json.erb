@@ -1,15 +1,16 @@
 <%
   files = @source_files.select do |file|
-    update_time = file.last_update and
+    update_time = file.updated_at and
     update_time > 10.seconds.ago
   end
   files = files.collect do |file|
     {:id => file.id,
      :user => file.person.andand.name,
+     :code => truncate(file.code, :length => 100),
      :status => (if file.lock
                    "Locked by #{file.person.andand.name} #{time_ago_in_words(file.locked_at)} ago."
                  else
-                   "Changed #{time_ago_in_words(file.last_update)} ago."
+                   "Changed #{time_ago_in_words(file.last_update)} ago"
                  end),
      :message => file.message}
   end
