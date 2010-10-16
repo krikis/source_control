@@ -38,7 +38,7 @@ div#login
       width: 100%
       min-height: 1em
       padding: 0.5em
-      
+
       span
         min-height: 1em
         vertical-align: -30%
@@ -106,7 +106,7 @@ div#person
 
       input.text
         font-size: 1em
-      
+
     div.text_value
       display: block
       float: left
@@ -223,7 +223,7 @@ div#toolbar
       font-weight: normal
       font: inherit
       color: !border_grey
-    
+
   p
     white-space: nowrap
     margin: 0px
@@ -239,7 +239,7 @@ div#source_files
 
   li.index
     width: 20%
-    
+
   li.index.login
     width: 18%
 
@@ -270,6 +270,21 @@ div#source_files
     span
       color: !blue
 
+  li.row.locked
+    span
+      color: red
+
+    a.icon
+      display: none
+
+  li.row.unlocked
+    div.clickable_row.icon
+      display: none
+
+    a.lock_icon
+      display: none
+
+
   li.row
     font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
     height: 2.6em
@@ -289,17 +304,19 @@ div#source_files
       color: black
       font-weight: normal
       text-decoration: none
-            
-    a.clickable_row.lock
-      span
-        color: red
 
     a.icon
       padding: 4px
       padding-left: 1em
       padding-top: 5px
       height: 32px
-      
+
+    a.lock_icon
+      padding: 4px
+      padding-left: 1em
+      padding-top: 5px
+      height: 32px
+
     div.clickable_row.icon
       padding: 4px
       padding-left: 1em

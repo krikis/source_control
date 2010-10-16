@@ -5,10 +5,14 @@
                 if (data.locked)
                   $.each(data.locked, function(){
                     console.log(this)
+                    $("li." + this.id).addClass("locked")
+                    $("li." + this.id).removeClass("unlocked")
                   })
                 if (data.unlocked)
                   $.each(data.unlocked, function(){
                     console.log(this)
+                    $("li." + this.id).addClass("unlocked")
+                    $("li." + this.id).removeClass("locked")
                   })
               })
   }

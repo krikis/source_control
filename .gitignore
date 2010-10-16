@@ -2,4 +2,5 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
-public/stylesheets/source_files/*.css
+public/stylesheets/screen.css
+public/stylesheets/common.css

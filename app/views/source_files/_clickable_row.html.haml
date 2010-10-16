@@ -3,6 +3,7 @@
 - color = clickable_row[:color]
 - element = clickable_row[:element]
 - id = element.id
+- row_class = clickable_row[:color] + " #{id}"
 - link_class = (icon ? "clickable_row icon" : "clickable_row")
 - case element
   - when Folder
@@ -11,13 +12,18 @@
   - when SourceFile
     - path = hash_for_source_file_path(:id => id)
     - if person = element.person
-      - if icon
-        - content = {:image => "lock.png", :title => "Locked by #{person.name} #{time_ago_in_words(element.locked_at)} ago."}
-      - else
-        - link_class += " lock"
+      - row_class += " locked"
+    - else
+      - row_class += " unlocked"
   - else
     - path = :back
-%li.row.clickable{:class => (clickable_row[:color] + " #{id}"), :title => (content unless icon), :id => id}
+%li.row.clickable{:class => row_class, :title => (content unless icon), :id => id}
   = link_to render(:partial => (icon || "text"), :object => content), |
             path,
             :class => link_class
+  - if element.is_a? SourceFile and icon
+    - content = {:image => "lock"}
+    = link_to render(:partial => (icon || "text"), :object => content), |
+              path,
+              :class => "clickable_row lock_icon #{id}", 
+              :title => ("Locked by #{element.person.andand.name} #{time_ago_in_words(element.locked_at)} ago." if element.lock)

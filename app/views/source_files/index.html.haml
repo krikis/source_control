@@ -17,7 +17,7 @@
                    :object => {:element => element,
                                :color => (selected ? "selected" : cycle("odd", "even")),
                                :icon => "icon",
-                               :content => {:image => "#{element.class.to_s.underscore}.png"}}
+                               :content => {:image => "#{element.class.to_s.underscore}"}}
     %li.column.index{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Name"} Name
