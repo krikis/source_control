@@ -1,2 +1,4 @@
-Add delete functionality
-Add errors
+Add errors to views
+Add pulsate effect to ajax update
+Add title and span content to ajax update
+Add ajax update for show
