@@ -46,7 +46,7 @@
           - selected = (element.id.to_s == params[:selected_id])
           = render :partial => "clickable_row", |
                    :object => {:element => element,
-                               :content => ("changed #{time_ago_in_words(element.last_update)} ago".humanize if element.is_a? SourceFile and element.last_update),
+                               :content => ("Changed #{time_ago_in_words(element.last_update)} ago" if element.is_a? SourceFile and element.last_update),
                                :color => (selected ? "selected" : cycle("odd", "even"))}
     %li.column.index{:class => ("login" if @person)}
       %ul
@@ -71,7 +71,7 @@
                                  :content => {:image => "delete"},
                                  :title => "Click here to delete this #{(element.is_a? Folder) ? "folder" : "source file"}.",
                                  :id => "delete"}
-    
+
 = render :partial => "empty" if (@folders + @source_files).blank?
 -# functions for clickable_row
 :javascript
@@ -90,7 +90,7 @@
   :javascript
     $(document).ready(function(){
       $("a#delete_#{element.id}").click(function(){
-        if (confirm("Are you sure you want to remove the #{(element.is_a? Folder) ? "folder" : "source file"} \"#{element.name}\"#{(" and all of its contents" if element.is_a? Folder)}?")) { 
+        if (confirm("Are you sure you want to remove the #{(element.is_a? Folder) ? "folder" : "source file"} \"#{element.name}\"#{(" and all of its contents" if element.is_a? Folder)}?")) {
           var f = document.createElement('form')
           f.style.display = 'none'
           this.parentNode.appendChild(f)
@@ -107,7 +107,10 @@
           m.setAttribute('value', 'delete')
           f.appendChild(m)
           f.submit()
-        }  
+        }
         return false
       })
     })
+-# add ajax refreshing of locked source files
+= render :partial => "ajax_refresh",
+         :object => {:path => hash_for_source_files_path.merge({:folder_id => @folder.andand.id, :format => :json})}

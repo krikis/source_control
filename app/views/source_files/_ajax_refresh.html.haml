@@ -1,0 +1,18 @@
+:javascript
+  function refresh_source_files(){
+    $.getJSON("#{url_for ajax_refresh[:path]}", 
+              function(data){
+                if (data.locked)
+                  $.each(data.locked, function(){
+                    console.log(this)
+                  })
+                if (data.unlocked)
+                  $.each(data.unlocked, function(){
+                    console.log(this)
+                  })
+              })
+  }
+  $(document).ready(function(){
+    var interval = setInterval('refresh_source_files()',
+                               5000)
+  })
