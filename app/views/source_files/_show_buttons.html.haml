@@ -8,21 +8,22 @@
                          :class => "toolbar_button"}
   - if @person
     - if (@source_file.lock.blank? or @person.id == @source_file.lock)
-      %li.toolbar_button
-        = render :partial => "button", |
-                 :object => {:text => "Edit",
-                             :path => edit_source_file_path(:id => @source_file.id),
-                             :method => :put,
-                             :icon => "edit.png",
-                             :title => "Click here to lock and edit the source file.",
-                             :id => "edit_source_file",
-                             :class => "toolbar_button"}
+      - class_name = "edit_button unlocked"
     - else
-      %li.toolbar_button
-        = render :partial => "disabled_button", |
-                 :object => {:text => "Locked",
-                             :icon => "lock.png",
-                             :title => "Locked by #{@source_file.person.andand.name} #{time_ago_in_words(@source_file.locked_at)} ago."}
+      - class_name = "edit_button locked"
+    %li.toolbar_button{:class => class_name}
+      = render :partial => "button", |
+               :object => {:text => "Edit",
+                           :path => edit_source_file_path(:id => @source_file.id),
+                           :method => :put,
+                           :icon => "edit.png",
+                           :title => "Click here to lock and edit the source file.",
+                           :id => "edit_source_file",
+                           :class => "toolbar_button"}
+      = render :partial => "disabled_button", |
+               :object => {:text => "Locked",
+                           :icon => "lock.png",
+                           :title => ("Locked by #{@source_file.person.andand.name} #{time_ago_in_words(@source_file.locked_at)} ago." if @source_file.lock)}
   %li.toolbar_button
     = render :partial => "button", |
              :object => {:text => "Download",
