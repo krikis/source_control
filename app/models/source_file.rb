@@ -36,8 +36,10 @@ class SourceFile < CouchRest::Model::Base
 
   # full path of the file
   def path_name
-    self.cached_path_name ||= generate_path_name
-    save
+    unless self.cached_path_name
+      self.cached_path_name = generate_path_name
+      self.save
+    end
     cached_path_name
   end
 

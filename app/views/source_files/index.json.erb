@@ -1,7 +1,6 @@
 <%
   files = @source_files.select do |file|
-    update_time = file.updated_at and
-    update_time > 10.seconds.ago
+    file.updated_at > 10.seconds.ago
   end
   files = files.collect do |file|
     {:id => file.id,

@@ -1,3 +1,8 @@
+- if person = @source_file.person and locked_at = @source_file.locked_at
+  - status = "Locked by #{person.name} #{time_ago_in_words(locked_at)} ago."
+  - classname = "locked"
+- elsif last_update = @source_file.last_update
+  - status = "Last updated #{time_ago_in_words(last_update)} ago. Message: \"#{@source_file.message}\""
 %div#toolbar
   = render :partial => "show_buttons"
 %div#source_file
@@ -6,13 +11,11 @@
       %ul
         %li.file_name{:title => (@source_file.path_name + @source_file.name)}
           %span= @source_file.path_name + @source_file.name
-        - if person = @source_file.person and locked_at = @source_file.locked_at
-          - status = "Locked by #{person.name} #{time_ago_in_words(locked_at)} ago."
-          - classname = "lock"
-        - elsif last_update = @source_file.last_update
-          - status = "Last updated #{time_ago_in_words(@source_file.last_update)} ago. Message: \"#{@source_file.message}\""
         - unless status.blank?
-          %li.file_status{:title => status}
-            %span{:class => classname}= status
+          %li.file_status{:title => status, :class => classname}
+            %span= status
     %li.content.code
       %pre= @source_file.code
+-# add ajax refreshing source file
+= render :partial => "show_refresh",
+         :object => {:path => source_file_path(:id => @source_file.id, :format => :json)}

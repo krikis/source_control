@@ -1,0 +1,13 @@
+<%
+  if @source_file.updated_at > 10.seconds.ago
+    if person = @source_file.person and locked_at = @source_file.locked_at
+      status = "Locked by #{person.name} #{time_ago_in_words(locked_at)} ago."
+    elsif last_update = @source_file.last_update
+      status = "Last updated #{time_ago_in_words(last_update)} ago. Message: \"#{@source_file.message}\""
+    end
+    file_hash = {:code => @source_file.code,
+                 :status => status,
+                 :lock => !@source_file.lock.blank?}
+  end
+%>
+<%= file_hash.to_json.html_safe %>
