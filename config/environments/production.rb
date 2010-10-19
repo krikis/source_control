@@ -49,4 +49,4 @@ SourceControl::Application.configure do
 end
 
 # set couchdb db
-COUCHDB = CouchRest.new "http://46.51.129.165:5984"
+COUCHDB = CouchRest.new "http://46.51.149.200:5984"
