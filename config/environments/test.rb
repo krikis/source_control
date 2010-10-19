@@ -33,3 +33,6 @@ SourceControl::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+
+# set couchdb db
+COUCHDB = CouchRest.new "http://127.0.0.1:3001"

@@ -47,3 +47,6 @@ SourceControl::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+
+# set couchdb db
+COUCHDB = CouchRest.new "http://46.51.129.165:5984"

@@ -27,3 +27,6 @@ SourceControl::Application.configure do
   config.log_level = :info
 end
 
+# set couchdb db
+COUCHDB = CouchRest.new "http://127.0.0.1:3001"
+
