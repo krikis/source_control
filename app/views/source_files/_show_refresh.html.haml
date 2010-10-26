@@ -8,7 +8,8 @@
                   $("li.code").find("pre").html(data.code)
                   if (data.lock && !$("li.file_status").hasClass("locked")){
                     $("li.file_status").addClass("locked")
-                    $("li.edit_button").addClass("locked")
+                    if (!data.my_file)
+                      $("li.edit_button").addClass("locked")
                     $("div.disabled_button").attr("title", data.status)
                     $("li.edit_button").removeClass("unlocked")
                     $("li.code").effect("highlight", {color:"#4183C4"}, 2000)

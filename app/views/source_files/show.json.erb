@@ -7,7 +7,8 @@
     end
     file_hash = {:code => @source_file.code,
                  :status => status,
-                 :lock => !@source_file.lock.blank?}
+                 :lock => !@source_file.lock.blank?,
+                 :my_file => (@source_file.lock == @person.id)}
   end
 %>
 <%= file_hash.to_json.html_safe %>

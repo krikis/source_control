@@ -50,7 +50,7 @@ class SourceFilesController < ApplicationController
   
   def unlock
     source_file = SourceFile.find params[:id]
-    if source_file and @person and @person == source_file.person
+    if source_file and @person and @person.id == source_file.lock
       source_file.update_attributes :lock => nil, 
                                     :locked_at => nil
     end                                
@@ -63,8 +63,6 @@ class SourceFilesController < ApplicationController
       send_data source_file.code,
                 :filename => source_file.name,
                 :type => "text/plain"
-      source_file.update_attributes :lock => @person.id,
-                                    :locked_at => Time.now
     end
   end
   

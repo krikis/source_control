@@ -1,5 +1,5 @@
 set :application, "source_control"
-set :deploy_to, "/var/www/"
+set :deploy_to, "/var/www/#{application}"
 set :repository, "git://github.com/krikis/source_control.git"
 
 set :scm, :git
