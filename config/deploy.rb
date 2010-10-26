@@ -1,6 +1,6 @@
 set :application, "source_control"
 set :deploy_to, "/var/www/"
-set :repository,  "https://krikis@github.com/krikis/source_control.git"
+set :repository, "git://github.com/krikis/source_control.git"
 
 set :scm, :git
 set :deploy_via, :remote_cache
