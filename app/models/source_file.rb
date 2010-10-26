@@ -10,6 +10,8 @@ class SourceFile < CouchRest::Model::Base
   property :last_update, Time
   property :updated_by, String
   property :message, String
+  
+  view_by  :folder_id, :name
 
   timestamps!
 
@@ -17,7 +19,10 @@ class SourceFile < CouchRest::Model::Base
 
   # check uniqueness of name in same folder
   before_save do |source_file|
-    source_file.errors.add(:name, :taken, :value => source_file.name) if files = SourceFile.all.select{|sf|sf.folder_id == source_file.folder_id and sf.name == source_file.name} and not files.blank? and not files.collect{|srcf|srcf.id}.include? source_file.id
+    if file = SourceFile.find_by_folder_id_and_name(source_file.folder_id, source_file.name) and 
+       file.id != source_file.id
+      source_file.errors.add(:name, :taken, :value => source_file.name)
+    end
     return false unless source_file.errors.blank?
   end
 
@@ -31,7 +36,7 @@ class SourceFile < CouchRest::Model::Base
   end
 
   def self.find_by_folder_id_and_name(folder_id, name)
-    all.select{|folder|folder.folder_id == folder_id and folder.name == name}.first
+    by_folder_id_and_name(:startkey => [folder_id, name], :endkey => [folder_id, name]).first
   end
 
   # full path of the file

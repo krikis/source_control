@@ -3,12 +3,17 @@ class Folder < CouchRest::Model::Base
 
   property :name, String
   property :parent_id, String
+  
+  view_by  :parent_id, :name
 
   validates_presence_of :name
   
   # check uniqueness of name in same folder
   before_save do |folder|
-    folder.errors.add(:name, :taken, :value => folder.name) if Folder.all.select{|f|f.parent_id == folder.parent_id}.collect{|fldr|fldr.name}.include? folder.name
+    if fldr = Folder.find_by_parent_id_and_name(folder.parent_id, folder.name) and 
+       fldr.id != folder.id
+      folder.errors.add(:name, :taken, :value => folder.name)
+    end
     return false unless folder.errors.blank?
   end
 
@@ -22,7 +27,7 @@ class Folder < CouchRest::Model::Base
   end
   
   def self.find_by_parent_id_and_name(parent_id, name)
-    all.select{|folder|folder.parent_id == parent_id and folder.name == name}.first
+    by_parent_id_and_name(:startkey => [parent_id, name], :endkey => [parent_id, name]).first
   end
 
   def parent

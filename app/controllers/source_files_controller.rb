@@ -14,6 +14,7 @@ class SourceFilesController < ApplicationController
 
   def show
     @source_file = SourceFile.find params[:id]
+    @folder = @source_file.folder
     redirect_to source_files_path unless @source_file
   end
 

@@ -1,14 +1,16 @@
 class Person < CouchRest::Model::Base
   use_database COUCHDB.database("person")
-  
+
   property :name
   property :user_name, String
   property :hashed_password, String
   property :salt, String
-  property :last_login, Time  
+  property :last_login, Time
   
+  view_by  :user_name
+
   timestamps!
-  
+
   validates_presence_of :password_confirmation, :if => :password_changed?
   validates_confirmation_of :password, :if => :password_changed?
   validates_length_of :password, :minimum => 8, :if => :password_changed?
@@ -16,17 +18,17 @@ class Person < CouchRest::Model::Base
   validates_presence_of :name
   validates_presence_of :user_name
   validates_uniqueness_of :user_name
-    
+
   # Temporary attribute to store password confirmation
   attr_accessor :password_confirmation
   # Temporary attribute to store old password
   attr_accessor :old_password
-  
+
   # find the source files the person locked
   def source_files
     SourceFile.all.select{|sf|sf.lock == id}
   end
-  
+
   def self.authenticate(user_name, password)
     if not user_name.blank? and person = find_by_user_name(user_name)
       unless person.hashed_password.blank?
@@ -37,15 +39,15 @@ class Person < CouchRest::Model::Base
       end
     end
   end
-  
+
   def self.first
     all.first
   end
-  
+
   def self.find_by_user_name(user_name)
-    all.select{|person| person.user_name == user_name}.first
+    by_user_name(:startkey => user_name, :limit => 1).first
   end
-  
+
   def password
     @password
   end
@@ -55,7 +57,7 @@ class Person < CouchRest::Model::Base
     create_new_salt
     self.hashed_password = Person.encrypted_password(self.password, self.salt)
   end
-  
+
   def password_changed?
     not password.blank?
   end
@@ -75,7 +77,7 @@ class Person < CouchRest::Model::Base
     end
     self.update_attributes(params) if self.errors.empty? # change the password
   end
-  
+
   private
 
   def self.encrypted_password(password, salt)

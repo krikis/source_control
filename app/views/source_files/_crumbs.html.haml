@@ -15,6 +15,6 @@
       %li.crumb
         = link_to truncate("#{folder.name}", :length => 20), 
                   hash_for_source_files_path.merge(:folder_id => folder.id),
-                  :class => "crumb#{" not_last" unless folder == folders.first}",
+                  :class => "crumb#{" not_last" unless folder == folders.first and params[:action] != "show"}",
                   :title => folder.name
     
