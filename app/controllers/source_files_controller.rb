@@ -21,7 +21,7 @@ class SourceFilesController < ApplicationController
   def create
     path = hash_for_source_files_path.merge({:folder_id => params[:folder_id]})
     if @person
-      source_file = SourceFile.create params.merge(:last_update => Time.now)
+      source_file = SourceFile.create params
       flash[:success] = "Source file \"#{source_file.name}\" added." if source_file.errors.blank?
       redirect_to path.merge({:selected_id => source_file.id})
     else
@@ -42,8 +42,10 @@ class SourceFilesController < ApplicationController
 
   def update
     source_file = SourceFile.find params[:id]
+    attribs = {:lock => nil, :locked_at => nil}
+    attribs[:last_update] = Time.now unless source_file.code.blank?
     if source_file and @person
-      source_file.update_attributes params[:source_file].merge(:last_update => Time.now, :lock => nil, :locked_at => nil)
+      source_file.update_attributes params[:source_file].merge(attribs)
       flash[:success] = "Source file \"#{source_file.name}\" updated." if source_file.errors.blank?
     end  
     redirect_to source_file_path(:id => params[:id])

@@ -45,10 +45,15 @@
         %li.header{:title => "Age"} Age
         - reset_cycle("default")
         - elements.each do |element|
+          - if element.is_a? SourceFile
+            - if element.last_update
+              - status = "Changed #{time_ago_in_words(element.last_update)} ago"
+            - else
+              - status = "Created #{time_ago_in_words(element.created_at)} ago"
           - selected = (element.id.to_s == params[:selected_id])
-          = render :partial => "clickable_row", |
+          = render :partial => "clickable_row",
                    :object => {:element => element,
-                               :content => ("Changed #{time_ago_in_words(element.last_update)} ago" if element.is_a? SourceFile and element.last_update),
+                               :content => status,
                                :color => "age #{selected ? "selected" : cycle("odd", "even")}"}
     %li.column.index{:class => ("login" if @person)}
       %ul

@@ -8,8 +8,10 @@
      :code => truncate(file.code, :length => 100),
      :status => (if file.lock
                    "Locked by #{file.person.andand.name} #{time_ago_in_words(file.locked_at)} ago."
-                 else
+                 elsif file.last_update
                    "Changed #{time_ago_in_words(file.last_update)} ago"
+                 else
+                   "Created #{time_ago_in_words(file.created_at)} ago"
                  end),
      :message => file.message}
   end

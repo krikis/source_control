@@ -13,6 +13,8 @@
             - status = "Locked by #{person.name} #{time_ago_in_words(locked_at)} ago."
           - elsif last_update = @source_file.last_update
             - status = "Last updated #{time_ago_in_words(@source_file.last_update)} ago. Message: \"#{@source_file.message}\""
+          - else
+            - status = "Created #{time_ago_in_words(@source_file.created_at)} ago."
           - unless status.blank?
             %li.file_status{:title => status}
               %span= status
