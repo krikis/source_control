@@ -11,6 +11,7 @@ class SourceFile < CouchRest::Model::Base
   property :updated_by, String
   property :message, String
   
+  view_by  :folder_id
   view_by  :folder_id, :name
 
   timestamps!
@@ -30,9 +31,8 @@ class SourceFile < CouchRest::Model::Base
     all.first
   end
 
-  # TODO create view
   def self.find_roots
-    all.select{|sf|sf.folder_id.blank?}.sort_by{|sf|sf.name.andand.downcase || ""}
+    by_folder_id(:startkey => "", :endkey => "").sort_by{|sf|sf.name.andand.downcase || ""}
   end
 
   def self.find_by_folder_id_and_name(folder_id, name)

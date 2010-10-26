@@ -4,6 +4,7 @@ class Folder < CouchRest::Model::Base
   property :name, String
   property :parent_id, String
   
+  view_by  :parent_id
   view_by  :parent_id, :name
 
   validates_presence_of :name
@@ -21,9 +22,8 @@ class Folder < CouchRest::Model::Base
     all.first
   end
 
-  # TODO create view
   def self.find_roots
-    all.select{|folder|folder.parent_id.blank?}.sort_by{|folder|folder.name.andand.downcase || ""}
+    by_parent_id(:startkey => "", :endkey => "").sort_by{|folder|folder.name.andand.downcase || ""}
   end
   
   def self.find_by_parent_id_and_name(parent_id, name)
