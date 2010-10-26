@@ -13,7 +13,7 @@ gem 'haml'
 gem 'json'
 gem 'validatable'
 gem 'couchrest'
-gem 'couchrest_model', :git => 'git://github.com/couchrest/couchrest_model.git'
+gem "couchrest_model", :git => "git://github.com/couchrest/couchrest_model.git"#, :ref => "5c21de8586f85b88b609"
 
 # Use unicorn as the web server
 # gem 'unicorn'
