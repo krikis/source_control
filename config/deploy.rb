@@ -1,13 +1,14 @@
 set :application, "source_control"
-set :repository,  "git@github.com/krikis:source_control.git"
+set :deploy_to, "/var/www/"
+set :repository,  "git@github.com:krikis/source_control.git"
 
 set :scm, :git
 set :deploy_via, :remote_cache
 
-set :user, "root"
+set :user, "ubuntu"
+ssh_options[:keys] = ["../../esposito.pem"]
 set :use_sudo, true
-
-set :appserver, "192.168.1.35"
+set :appserver, "46.51.132.118"
 
 role :web, appserver                          # Your HTTP server, Apache/etc
 role :app, appserver                          # This may be the same as your `Web` server
