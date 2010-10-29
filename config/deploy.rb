@@ -8,7 +8,7 @@ set :deploy_via, :remote_cache
 set :user, "ubuntu"
 ssh_options[:keys] = ["../../esposito.pem"]
 set :use_sudo, true
-set :appserver, "46.51.132.118"
+set :appserver, "46.51.146.211"
 
 role :web, appserver                          # Your HTTP server, Apache/etc
 role :app, appserver                          # This may be the same as your `Web` server
