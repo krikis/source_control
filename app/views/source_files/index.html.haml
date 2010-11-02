@@ -7,7 +7,7 @@
     = render :partial => "toolbar"
 %div#source_files
   %ul
-    %li.column.index_icon
+    %li.column.index_icon.type
       %ul
         %li.header &nbsp;
         - reset_cycle("default")
@@ -18,7 +18,7 @@
                                :color => (selected ? "selected" : cycle("odd", "even")),
                                :icon => "icon",
                                :content => {:image => "#{element.class.to_s.underscore}"}}
-    %li.column.index{:class => ("login" if @person)}
+    %li.column.index.name{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Name"} Name
         - reset_cycle("default")
@@ -40,7 +40,7 @@
                    :object => {:element => element,
                                :content => content,
                                :color => "code #{selected ? "selected" : cycle("odd", "even")}"}
-    %li.column.index{:class => ("login" if @person)}
+    %li.column.index.age{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Age"} Age
         - reset_cycle("default")
@@ -55,7 +55,7 @@
                    :object => {:element => element,
                                :content => status,
                                :color => "age #{selected ? "selected" : cycle("odd", "even")}"}
-    %li.column.index{:class => ("login" if @person)}
+    %li.column.index.message{:class => ("login" if @person)}
       %ul
         %li.header{:title => "Message"} Message
         - reset_cycle("default")
@@ -66,7 +66,7 @@
                                :content => (element.message if element.is_a? SourceFile),
                                :color => "message #{selected ? "selected#{" last" unless @person}" : cycle("odd#{" last" unless @person}", "even#{" last" unless @person}")}"}
     - if @person
-      %li.column.index_icon
+      %li.column.index_icon.delete
         %ul
           %li.header &nbsp;
           - reset_cycle("default")
@@ -77,7 +77,7 @@
                                  :color => (selected ? "selected last" : cycle("odd last", "even last")),
                                  :content => {:image => "delete"},
                                  :title => "Click here to delete this #{(element.is_a? Folder) ? "folder" : "source file"}.",
-                                 :id => "delete"}
+                                 :class => "delete"}
 
 = render :partial => "empty" if (@folders + @source_files).blank?
 -# functions for clickable_row
@@ -92,32 +92,37 @@
       }
     )
   })
--# delete functions for each row
-- elements.each do |element|
-  :javascript
-    $(document).ready(function(){
-      $("a#delete_#{element.id}").click(function(){
-        if (confirm("Are you sure you want to remove the #{(element.is_a? Folder) ? "folder" : "source file"} \"#{element.name}\"#{(" and all of its contents" if element.is_a? Folder)}?")) {
-          var f = document.createElement('form')
-          f.style.display = 'none'
-          this.parentNode.appendChild(f)
-          f.method = 'POST'
-          f.action = this.href
-          var h = document.createElement('input')
-          h.setAttribute('type', 'hidden')
-          h.setAttribute('name', 'authenticity_token')
-          h.setAttribute('value', "#{session[:_csrf_token]}")
-          f.appendChild(h)
-          var m = document.createElement('input')
-          m.setAttribute('type', 'hidden')
-          m.setAttribute('name', '_method')
-          m.setAttribute('value', 'delete')
-          f.appendChild(m)
-          f.submit()
-        }
-        return false
-      })
+-# delete function
+:javascript
+  $(document).ready(function(){
+    $("a.delete").click(function(){
+      is_folder = $(this).hasClass("folder")
+      msg = "Are you sure you want to remove this "
+      if (is_folder)
+        msg += "folder and all of its contents?"
+      else  
+        msg += "source file?"
+      if (confirm(msg)) {
+        var f = document.createElement('form')
+        f.style.display = 'none'
+        this.parentNode.appendChild(f)
+        f.method = 'POST'
+        f.action = this.href
+        var h = document.createElement('input')
+        h.setAttribute('type', 'hidden')
+        h.setAttribute('name', 'authenticity_token')
+        h.setAttribute('value', "#{session[:_csrf_token]}")
+        f.appendChild(h)
+        var m = document.createElement('input')
+        m.setAttribute('type', 'hidden')
+        m.setAttribute('name', '_method')
+        m.setAttribute('value', 'delete')
+        f.appendChild(m)
+        f.submit()
+      }
+      return false
     })
+  })
 -# add ajax refreshing of locked source files
 = render :partial => "index_refresh",
          :object => {:path => hash_for_source_files_path.merge({:folder_id => @folder.andand.id, :format => :json})}

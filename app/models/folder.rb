@@ -7,6 +7,8 @@ class Folder < CouchRest::Model::Base
   view_by  :parent_id
   view_by  :parent_id, :name
 
+  timestamps!
+
   validates_presence_of :name
   
   # check uniqueness of name in same folder
@@ -38,10 +40,12 @@ class Folder < CouchRest::Model::Base
     parent_id = parent.id
   end
 
+  # TODO replace by view
   def children
     Folder.all.select{|sf|sf.parent_id == id}.sort_by{|folder|folder.name.andand.downcase || ""}
   end
 
+  # TODO replace by view
   def source_files
     SourceFile.all.select{|sf|sf.folder_id == id}.sort_by{|sf|sf.name.andand.downcase || ""}
   end

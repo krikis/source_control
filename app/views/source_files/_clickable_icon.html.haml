@@ -4,9 +4,11 @@
 - id = element.id
 - row_class = clickable_icon[:color] + " #{id}"
 - link_class = "clickable_row icon"
+- link_class += " #{clickable_icon[:class]}"
 - case element
   - when Folder
     - path = folder_path(:id => id)
+    - link_class += " folder"
   - when SourceFile
     - path = source_file_path(:id => id)
     - if person = element.person
@@ -19,7 +21,6 @@
   = link_to render(:partial => "icon", :object => content), |
             path,
             :class => link_class,
-            :id => "#{clickable_icon[:id]}_#{id}",
             :title => clickable_icon[:title]
   - if element.is_a? SourceFile
     - content[:image] = (content[:image] + "_disabled")

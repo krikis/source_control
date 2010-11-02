@@ -28,5 +28,6 @@ SourceControl::Application.configure do
 end
 
 # set couchdb db
-COUCHDB = CouchRest.new "http://46.51.153.220:5984"
+COUCHDB = CouchRest.new "http://localhost:3001"
+# COUCHDB = CouchRest.new "http://46.51.144.203:5984"
 

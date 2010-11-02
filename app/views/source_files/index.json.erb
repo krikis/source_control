@@ -1,22 +1,38 @@
 <%
+  foldersnfiles = (@folders + @source_files)
   files = @source_files.select do |file|
-    file.updated_at > 10.seconds.ago
+    file.updated_at > 10.seconds.ago or file.created_at > 10.seconds.ago
   end
-  files = files.collect do |file|
-    {:id => file.id,
-     :user => file.person.andand.name,
-     :code => truncate(file.code, :length => 100),
-     :status => (if file.lock
-                   "Locked by #{file.person.andand.name} #{time_ago_in_words(file.locked_at)} ago."
-                 elsif file.last_update
-                   "Changed #{time_ago_in_words(file.last_update)} ago"
-                 else
-                   "Created #{time_ago_in_words(file.created_at)} ago"
-                 end),
-     :message => file.message}
+  files += @folders.select do |folder|
+    folder.created_at > 10.seconds.ago
   end
-  files = files.group_by{|el|el[:user] ? :locked : :unlocked}
+  data = []
+  puts files.inspect
+  files.each do |file|
+    data_hash = {:id => file.id,
+                 :class_name => file.class.to_s.underscore}
+    case file
+    when SourceFile
+      class_specific = {:name => (file.name unless file.created_at < 10.seconds.ago),
+                        :previous => (foldersnfiles[foldersnfiles.index(file) - 1].id unless file.created_at < 10.seconds.ago or file == foldersnfiles.first),
+                        :code => truncate(file.code, :length => 100), 
+                        :user => file.person.andand.name, 
+                        :status => (if file.lock
+                                      "Locked by #{file.person.andand.name} #{time_ago_in_words(file.locked_at)} ago."
+                                    elsif file.last_update
+                                      "Changed #{time_ago_in_words(file.last_update)} ago"
+                                    else
+                                      "Created #{time_ago_in_words(file.created_at)} ago"
+                                    end),
+                        :message => file.message}
+    when Folder
+      class_specific = {:name => file.name,
+                        :previous => (foldersnfiles[foldersnfiles.index(file) - 1].id unless file == foldersnfiles.first)}
+    end
+    data << data_hash.merge(class_specific)
+  end
+  data = data.group_by{|el|el[:user] ? :locked : (el[:name] ? :new : :unlocked)}
 %>
 <%=
-  files.to_json.html_safe
+  data.to_json.html_safe
 %>

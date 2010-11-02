@@ -1,30 +1,138 @@
 :javascript
   function refresh_source_files(){
     $.getJSON("#{url_for index_refresh[:path]}", 
-              function(data){
-                if (data.locked)
-                  $.each(data.locked, function(){
-                    if ($("li." + this.id).hasClass("unlocked")){
-                      $("a.lock_icon." + this.id).attr("title", this.status)
-                      $("li." + this.id).addClass("locked")
-                      $("li." + this.id).removeClass("unlocked")
-                      $("li.code." + this.id).find("span").html(this.status)
-                      $("li." + this.id).effect("highlight", {color:"#4183C4"}, 2000)
-                    }
-                  })
-                if (data.unlocked)
-                  $.each(data.unlocked, function(){
-                    if ($("li." + this.id).hasClass("locked")){
-                      $("li." + this.id).addClass("unlocked")
-                      $("li." + this.id).removeClass("locked")
-                      $("li.code." + this.id).find("span").html(this.code)
-                      $("li.age." + this.id).find("span").html(this.status)
-                      $("li.message." + this.id).find("span").html(this.message)
-                      $("li." + this.id).effect("highlight", {color:"#4183C4"}, 2000)
-                    }
-                  })
-              })
+      function(data){
+        if (data.locked) // lock files
+          $.each(data.locked, function(){
+            if ($("li." + this.id).hasClass("unlocked")){
+              $("a.lock_icon." + this.id).attr("title", this.status)
+              $("li." + this.id).addClass("locked")
+              $("li." + this.id).removeClass("unlocked")
+              $("li.code." + this.id).find("span").html(this.status)
+              $("li." + this.id).effect("highlight", {color:"#4183C4"}, 2000)
+            }
+          })
+        if (data.unlocked) // unlock files
+          $.each(data.unlocked, function(){
+            if ($("li." + this.id).hasClass("locked")){
+              $("li." + this.id).addClass("unlocked")
+              $("li." + this.id).removeClass("locked")
+              $("li.code." + this.id).find("span").html(this.code)
+              $("li.age." + this.id).find("span").html(this.status)
+              $("li.message." + this.id).find("span").html(this.message)
+              $("li." + this.id).effect("highlight", {color:"#4183C4"}, 2000)
+            }
+          })
+        if (data.new) // add newly created files
+         $.each(data.new, function(){
+            if ($("li." + this.id).length == 0){
+              insertRow(this.previous, "type", iconRow(this.id, this.class_name))
+              insertRow(this.previous, "name", clickableRow(this.id, this.class_name, this.name))
+              insertRow(this.previous, "code", clickableRow(this.id, this.class_name, this.code))
+              insertRow(this.previous, "age", clickableRow(this.id, this.class_name, this.status))
+              insertRow(this.previous, "message", clickableRow(this.id, this.class_name, this.message))
+              insertRow(this.previous, "delete", clickableIcon(this.id, this.class_name))
+              setFunctions()
+              $("li." + this.id).effect("highlight", {color:"#cfc"}, 2000)
+            }
+         })
+      })
   }
+
+  // insert new row into column
+  function insertRow(id, class_name, content){
+    if (id != null)
+      $("div#source_files").find("li.column." + class_name).find("li." + id).after(content)
+    else
+      $("div#source_files").find("li.column." + class_name).find("li.header").after(content)
+  }
+  
+  // set the delete function for the delete button
+  function setFunctions(){
+    $("a.delete").click(function(){
+      is_folder = $(this).hasClass("folder")
+      msg = "Are you sure you want to remove this "
+      if (is_folder)
+        msg += "folder and all of its contents?"
+      else  
+        msg += "source file?"
+      if (confirm(msg)) {
+        var f = document.createElement('form')
+        f.style.display = 'none'
+        this.parentNode.appendChild(f)
+        f.method = 'POST'
+        f.action = this.href
+        var h = document.createElement('input')
+        h.setAttribute('type', 'hidden')
+        h.setAttribute('name', 'authenticity_token')
+        h.setAttribute('value', "#{session[:_csrf_token]}")
+        f.appendChild(h)
+        var m = document.createElement('input')
+        m.setAttribute('type', 'hidden')
+        m.setAttribute('name', '_method')
+        m.setAttribute('value', 'delete')
+        f.appendChild(m)
+        f.submit()
+      }
+      return false
+    })
+  }
+  
+  // create icon row
+  function iconRow(id, class_name){
+    path = ""
+    if (class_name == "source_file")
+      path = "/source_files/" + id
+    else 
+      path = "/source_files?folder_id=" + id
+    output = "<li class=\"" + id + " clickable selected row unlocked\" id=\"" + id + "\">" +
+               "<a href=\"" + path + "\" class=\"clickable_row icon\">" +
+                 "<img alt=\"\" height=\"24\" src=\"/images/" + class_name + ".png\" width=\"24\">" +
+               "</a>"
+    if (class_name == "source_file") {
+      output += "<a href=\"" + path + "\" class=\"clickable_row lock_icon " + id + "\">" +
+                  "<img alt=\"\" height=\"24\" src=\"/images/lock.png\" width=\"24\">" +
+                "</a>"
+    }
+    output += "</li>"
+    return output
+  }
+  
+  // create clickable row
+  function clickableRow(id, class_name, content){
+    path = ""
+    if (class_name == "source_file")
+      path = "/source_files/" + id
+    else 
+      path = "/source_files?folder_id=" + id
+    title = content
+    if (content == null || content == ""){
+      title = ""
+      content = "&nbsp;"
+    }
+    output = "<li class=\"" + id + " blue clickable row selected unlocked\" id=\"" + id + "\" title=\"" + title + "\">" +
+             "<a href=\"" + path + "\" class=\"clickable_row\">" +
+               "<span>" + content + "</span>" +
+             "</a>" +
+           "</li>"
+    return output
+  }
+  
+  // create clickable icon
+  function clickableIcon(id, class_name){
+    path = ""
+    if (class_name == "source_file")
+      path = "/source_files/" + id
+    else 
+      path = "/folders/" + id
+    output = "<li class=\"" + id + " clickable last selected row\" id=\"" + id + "\">" +
+               "<a href=\"" + path + "\" class=\"clickable_row icon delete " + class_name + "\" title=\"Click here to delete this folder.\">" +
+                 "<img alt=\"\" height=\"24\" src=\"/images/delete.png\" width=\"24\">" +
+               "</a>" +
+             "</li>"
+    return output
+  }
+  
   $(document).ready(function(){
     var interval = setInterval('refresh_source_files()',
                                2000)
