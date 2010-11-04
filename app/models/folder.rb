@@ -40,14 +40,12 @@ class Folder < CouchRest::Model::Base
     parent_id = parent.id
   end
 
-  # TODO replace by view
   def children
-    Folder.all.select{|sf|sf.parent_id == id}.sort_by{|folder|folder.name.andand.downcase || ""}
+    by_parent_id(:startkey => id, :endkey => id).sort_by{|folder|folder.name.andand.downcase || ""}
   end
 
-  # TODO replace by view
   def source_files
-    SourceFile.all.select{|sf|sf.folder_id == id}.sort_by{|sf|sf.name.andand.downcase || ""}
+    SourceFile.by_folder_id(:startkey => id, :endkey => id).sort_by{|sf|sf.name.andand.downcase || ""}
   end
   
   def destroy_folder
