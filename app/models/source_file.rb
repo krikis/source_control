@@ -98,9 +98,10 @@ class SourceFile < CouchRest::Model::Base
   # set lock on file to prevent editing
   def set_lock(lock)
     begin
-      update_attributes :lock => lock
+      update_attributes :lock => lock,
+                        :locked_at => Time.now
     rescue Exception => e
-      flash[:error] = "The file could not be locked! Try again later."
+      self.errors.add :lock, "The file could not be locked! Try again later."
     end
   end
 

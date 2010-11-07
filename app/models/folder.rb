@@ -41,7 +41,7 @@ class Folder < CouchRest::Model::Base
   end
 
   def children
-    by_parent_id(:startkey => id, :endkey => id).sort_by{|folder|folder.name.andand.downcase || ""}
+    Folder.by_parent_id(:startkey => id, :endkey => id).sort_by{|folder|folder.name.andand.downcase || ""}
   end
 
   def source_files
