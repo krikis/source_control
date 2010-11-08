@@ -26,6 +26,7 @@
         if (data.new) // add newly created files
          $.each(data.new, function(){
             if ($("li." + this.id).length == 0){
+              $("div.empty").hide()
               insertRow(this.previous, "type", iconRow(this.id, this.class_name))
               insertRow(this.previous, "name", clickableRow(this.id, this.class_name, this.name))
               insertRow(this.previous, "code", clickableRow(this.id, this.class_name, this.code))
