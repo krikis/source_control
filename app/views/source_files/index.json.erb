@@ -7,7 +7,6 @@
     folder.created_at > 10.seconds.ago
   end
   data = []
-  puts files.inspect
   files.each do |file|
     data_hash = {:id => file.id,
                  :class_name => file.class.to_s.underscore}

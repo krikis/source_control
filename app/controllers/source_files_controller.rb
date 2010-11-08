@@ -42,7 +42,7 @@ class SourceFilesController < ApplicationController
   def update
     source_file = SourceFile.find params[:id]
     attribs = {:lock => nil, :locked_at => nil}
-    attribs[:last_update] = Time.now unless source_file.code.blank?
+    attribs[:last_update] = Time.now unless source_file.code.blank? and params[:source_file][:code].blank?
     if source_file and @person
       source_file.update_attributes params[:source_file].merge(attribs)
       flash[:success] = "Source file \"#{source_file.name}\" updated." if source_file.errors.blank?
