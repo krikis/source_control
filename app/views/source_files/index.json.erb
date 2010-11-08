@@ -1,10 +1,10 @@
 <%
   foldersnfiles = (@folders + @source_files)
   files = @source_files.select do |file|
-    file.updated_at > 10.seconds.ago or file.created_at > 10.seconds.ago
+    file.updated_at > 1.minute.ago or file.created_at > 1.minute.ago
   end
   files += @folders.select do |folder|
-    folder.created_at > 10.seconds.ago
+    folder.created_at > 1.minute.ago
   end
   data = []
   files.each do |file|
@@ -12,8 +12,8 @@
                  :class_name => file.class.to_s.underscore}
     case file
     when SourceFile
-      class_specific = {:name => (file.name unless file.created_at < 10.seconds.ago),
-                        :previous => (foldersnfiles[foldersnfiles.index(file) - 1].id unless file.created_at < 10.seconds.ago or file == foldersnfiles.first),
+      class_specific = {:name => (file.name unless file.created_at < 1.minute.ago),
+                        :previous => (foldersnfiles[foldersnfiles.index(file) - 1].id unless file.created_at < 1.minute.ago or file == foldersnfiles.first),
                         :code => truncate(file.code, :length => 100), 
                         :user => file.person.andand.name, 
                         :status => (if file.lock

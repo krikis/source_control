@@ -1,5 +1,5 @@
 <%
-  if @source_file.updated_at > 10.seconds.ago
+  if @source_file.updated_at > 1.minute.ago
     if person = @source_file.person and locked_at = @source_file.locked_at
       status = "Locked by #{person.name} #{time_ago_in_words(locked_at)} ago."
     elsif last_update = @source_file.last_update
