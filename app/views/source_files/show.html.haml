@@ -5,6 +5,24 @@
   - status = "Last updated #{time_ago_in_words(last_update)} ago. Message: \"#{@source_file.message}\""
 - else
   - status = "Created #{time_ago_in_words(@source_file.created_at)} ago."
+- extension = @source_file.name.split(".").last
+- case extension
+  - when "rb"
+    - lang = "ruby"
+  - when "pl"
+    - lang = "perl"
+  - when "py"
+    - lang = "python"
+  - when "c"
+    - lang = "cpp"
+  - when "js"
+    - lang = "jscript"
+  - when "html"
+    - lang = "xml"
+  - when "patch"
+    - lang = "diff"
+  - else
+    - lang = extension
 %div#crumbs
   = render :partial => "crumbs"
 %div#toolbar
@@ -19,7 +37,14 @@
           %li.file_status{:title => status, :class => classname}
             %span= status
     %li.content.code
-      %pre= @source_file.code
+      %pre{:class => "brush: #{lang}"}= @source_file.code
 -# add ajax refreshing source file
 = render :partial => "show_refresh",
          :object => {:path => source_file_path(:id => @source_file.id, :format => :json)}
+:javascript
+  $(document).ready(function(){
+    SyntaxHighlighter.autoloader(
+      '#{lang}  /javascripts/shBrush#{lang.titlecase}.js'
+    )
+    SyntaxHighlighter.all()
+  })
