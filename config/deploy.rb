@@ -6,7 +6,7 @@ set :scm, :git
 set :deploy_via, :remote_cache
 
 set :user, "ubuntu"
-ssh_options[:keys] = ["../../esposito.pem"]
+ssh_options[:keys] = ["esposito.pem"]
 set :use_sudo, true
 set :appserver, "46.51.146.211"
 
