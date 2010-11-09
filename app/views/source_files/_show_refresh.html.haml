@@ -2,7 +2,7 @@
   function refresh_source_file(){
     $.getJSON("#{url_for show_refresh[:path]}",
               function(data){
-                if (data){
+                if (data && !$("li.file_status").hasClass("revision")){
                   $("li.code").find("pre").html(data.code)
                   if (data.lock && !$("li.file_status").hasClass("locked")){
                     $("li.file_status").find("span").html(data.status)
@@ -11,13 +11,13 @@
                       $("li.edit_button").addClass("locked")
                     $("div.disabled_button").attr("title", data.status)
                     $("li.edit_button").removeClass("unlocked")
-                    $("li.code").effect("highlight", {color:"#4183C4"}, 2000)
+                    $("body").effect("highlight", {color:"#4183C4"}, 2000)
                   } else if (!data.lock && $("li.file_status").hasClass("locked")){
                     $("li.file_status").find("span").html(data.status)
                     $("li.file_status").removeClass("locked")
                     $("li.edit_button").addClass("unlocked")
                     $("li.edit_button").removeClass("locked")
-                    $("li.code").effect("highlight", {color:"#4183C4"}, 2000)
+                    $("body").effect("highlight", {color:"#4183C4"}, 2000)
                   }
                 }
               })

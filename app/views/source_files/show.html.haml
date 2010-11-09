@@ -1,6 +1,9 @@
+- previous_id = @source_file.previous_id
+- next_id = @source_file.next_id
 - if person = @source_file.person and locked_at = @source_file.locked_at
   - status = "Locked by #{person.name} #{time_ago_in_words(locked_at)} ago."
   - classname = "locked"
+  - classname += " revision" if next_id
 - elsif last_update = @source_file.last_update
   - status = "Last updated #{time_ago_in_words(last_update)} ago. Message: \"#{@source_file.message}\""
 - else
@@ -35,12 +38,10 @@
   %ul
     %li.header
       %ul
-        %li.file_name{:title => (@source_file.path_name + @source_file.name)}
-          %span= @source_file.path_name + @source_file.name + " @ " + @source_file.rev
+        %li.file_name{:title => (@source_file.path_name + @source_file.name + " @ " + @source_file.rev)}
+          %span= @source_file.path_name + @source_file.name
         %li.file_revision
           %span
-            - previous_id = @source_file.previous_id
-            - next_id = @source_file.next_id
             - if previous_id
               = link_to raw("&#171; Previous Version"),
                         hash_for_source_file_path(:id => @source_file.id, :rev => previous_id),
