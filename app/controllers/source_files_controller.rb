@@ -13,7 +13,12 @@ class SourceFilesController < ApplicationController
   end
 
   def show
-    @source_file = SourceFile.find params[:id]
+    if params[:rev]
+      @source_file = SourceFile.find params[:id], :revs => true, :rev => params[:rev]
+    else
+      @source_file = SourceFile.find params[:id], :revs => true
+    end
+    puts @source_file['_revisions'].inspect
     redirect_to source_files_path and return unless @source_file
     @folder = @source_file.folder
   end

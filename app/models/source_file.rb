@@ -38,6 +38,22 @@ class SourceFile < CouchRest::Model::Base
   def self.find_by_folder_id_and_name(folder_id, name)
     by_folder_id_and_name(:startkey => [folder_id, name], :endkey => [folder_id, name]).first
   end
+  
+  # returns the id of the previous revision, if any
+  def previous_id
+    ids = self["_revisions"]["ids"]
+    start = self['_revisions']['start']
+    "#{start - 1}-#{ids[1]}" if start > 2
+  end
+
+  # returns the id of the next revision, if any
+  def next_id
+    original = SourceFile.find id, :revs => true
+    ids = original["_revisions"]["ids"]
+    start = self['_revisions']['start']
+    index = ids.size - (start + 1)
+    "#{start + 1}-#{ids[index]}" if index >= 0
+  end
 
   # full path of the file
   def path_name

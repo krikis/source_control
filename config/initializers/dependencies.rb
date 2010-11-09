@@ -1,0 +1,1 @@
+require 'extensions/couchrest_model_extensions'

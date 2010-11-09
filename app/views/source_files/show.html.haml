@@ -36,7 +36,21 @@
     %li.header
       %ul
         %li.file_name{:title => (@source_file.path_name + @source_file.name)}
-          %span= @source_file.path_name + @source_file.name
+          %span= @source_file.path_name + @source_file.name + " @ " + @source_file.rev
+        %li.file_revision
+          %span
+            - previous_id = @source_file.previous_id
+            - next_id = @source_file.next_id
+            - if previous_id
+              = link_to raw("&#171; Previous Version"),
+                        hash_for_source_file_path(:id => @source_file.id, :rev => previous_id),
+                        :class => "revision"
+            - if next_id and previous_id
+              = " | "
+            - if next_id
+              = link_to raw("Next Version &#187;"),
+                        hash_for_source_file_path(:id => @source_file.id, :rev => next_id),
+                        :class => "revision"
         - unless status.blank?
           %li.file_status{:title => status, :class => classname}
             %span= status

@@ -367,13 +367,32 @@ div#source_file
     li.file_name
       display: block
       float: left
-      width: 50%
+      height: 1.5em
+      width: 30%
+      overflow: hidden
+
+    li.file_revision
+      display: block
+      float: left
+      height: 1.5em
+      width: 40%
+      overflow: hidden
+      
+      a.revision
+        color: white
+        text-decoration: none
+
+        &:hover, &:active
+          color: !blue
+          text-decoration: underline
 
     li.file_status
       display: block
       float: left
       text-align: right
-      width: 50%
+      height: 1.5em
+      width: 30%
+      overflow: hidden
 
     li.file_status.locked
       span
